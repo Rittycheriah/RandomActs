@@ -3,7 +3,7 @@
 
 ### User Story: 
 1. Users will register and sign in. 
-2. Users will be able to log rnadom acts of kindness and the system will assign an arbitrary number of points
+2. Users will be able to log random acts of kindness and number of points assigned will be dependent on the rank of the user. 
 3. User random act will consist of title, description of the act, and location
 4. User can create unlimited number of acts. 
 5. User can search all acts for inspiration
