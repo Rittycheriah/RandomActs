@@ -10,10 +10,11 @@
 6. User can follow other Users
 7. User can search all acts in database for inspiration
 8. User can add comments and points to other user's acts of kindness
-9. App will be responsive
-10. User can tag other users in their act. 
-11. User will have user profile with the total number of points earned
-12. User will have the ability to view other users total points
+9. User can edit and delete comments. 
+10. App will be responsive
+11. User can tag other users in their act. 
+12. User will have user profile with the total number of points earned
+13. User will have the ability to view other users total points
 
 ### Advanced Functionality: 
 1. Showing a graph of concentration of random acts of kindness utilizing Google Maps API. 
