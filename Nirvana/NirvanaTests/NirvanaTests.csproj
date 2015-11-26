@@ -87,6 +87,7 @@
     <Compile Include="ModelTests\CommentModelTests.cs" />
     <Compile Include="ModelTests\RandomActModelTests.cs" />
     <Compile Include="ModelTests\LikeModelTest.cs" />
+    <Compile Include="ModelTests\RankModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
