@@ -52,6 +52,51 @@ namespace Nirvana.Models
 
             return query.Count();
         }
+
+        public Rank GetUserRank(ApplicationUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Rank> GetAllUsersRanks()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Comment> GetAllComments()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Comment> GetAllComments(RandomActsModel act)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteComment(int comment_id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Comment CreateComment(string curr_comment, ApplicationUser user, DateTime date)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateComment(int comment_id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool GetLikes(int act_id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetLikeCount(int act_id)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
