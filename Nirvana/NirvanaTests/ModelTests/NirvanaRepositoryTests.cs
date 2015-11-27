@@ -89,5 +89,28 @@ namespace NirvanaTests.ModelTests
             Assert.AreEqual(2, ActsResult.Count);
             Assert.AreEqual("donation", ActsResult.First().RandomActTitle);
         }
+
+        [TestMethod]
+        public void NirvanaRepoCanCreateAct()
+        {
+            //Arrange
+            ConnectMocksToData();
+            mock_acts.Setup(b => b.Add(It.IsAny<RandomActsModel>())).Callback((RandomActsModel act) => my_acts.Add(act));
+            mock_context.Setup(a => a.Acts).Returns(mock_acts.Object);
+
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+            string title = "Gave a friend a ride";
+            string description = "My friend was walking home from school, but I decided since it was cold it was better for them to ride with me";
+            DateTime date = new DateTime(2015, 01, 01);
+
+            //Act
+            RandomActsModel added_act = nirvana_repo.CreateAct(title, description, date, owner);
+
+            //Assert
+            Assert.IsNotNull(added_act);
+            mock_acts.Verify(n => n.Add(It.IsAny<RandomActsModel>()));
+            mock_context.Verify(c => c.SaveChanges(), Times.Once());
+            // need to run method for ActCount
+        }
     }
 }

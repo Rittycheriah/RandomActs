@@ -29,5 +29,15 @@ namespace Nirvana.Models
             var UserActsQuery = from acts in context.Acts where acts.Owner == _user select acts;
             return UserActsQuery.ToList<RandomActsModel>();
         }
+
+        public RandomActsModel CreateAct(string ActTitle, string ActDescription, DateTime ActDate, ApplicationUser owner)
+        {
+            RandomActsModel _act = new RandomActsModel { RandomActTitle = ActTitle, RandomActDescription = ActDescription, Date = ActDate, Owner = owner };
+            context.Acts.Add(_act);
+            context.SaveChanges();
+
+            return _act;
+        }
     }
+
 }

@@ -6,7 +6,7 @@ using System.Data.Entity;
 
 namespace Nirvana.Models
 {
-    public class NirvanaContext
+    public class NirvanaContext : DbContext
     {
         // Need to find the connection string for DB web.config
         public virtual DbSet<RandomActsModel> Acts { get; set; }
