@@ -48,7 +48,9 @@ namespace Nirvana.Models
 
         public int GetActCount(ApplicationUser user)
         {
-            throw new NotImplementedException();
+            var query = from acts in context.Acts where acts.Owner == user select acts;
+
+            return query.Count();
         }
     }
 
