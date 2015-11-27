@@ -18,5 +18,16 @@ namespace Nirvana.Models
         {
             context = this_context;
         }
+
+        public List<RandomActsModel> GetAllActs()
+        {
+            return context.Acts.ToList();   
+        }
+
+        public List<RandomActsModel> GetAllActs(ApplicationUser _user)
+        {
+            var UserActsQuery = from acts in context.Acts where acts.Owner == _user select acts;
+            return UserActsQuery.ToList<RandomActsModel>();
+        }
     }
 }

@@ -71,5 +71,23 @@ namespace NirvanaTests.ModelTests
             // Assert
             Assert.AreEqual(2, ActsResult.Count);
         }
+
+        [TestMethod]
+        public void NirvanaRepositoryEnsureICanGetAllActsForAUser( )
+        {
+            // Arrange
+            my_acts.Add(new RandomActsModel { RandomActTitle = "donation", Owner = owner });
+            my_acts.Add(new RandomActsModel { RandomActTitle = "puppy", Owner = owner });
+            ConnectMocksToData();
+
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+
+            //Act
+            List<RandomActsModel> ActsResult = nirvana_repo.GetAllActs(owner);
+
+            //Assert
+            Assert.AreEqual(2, ActsResult.Count);
+            Assert.AreEqual("donation", ActsResult.First().RandomActTitle);
+        }
     }
 }
