@@ -112,5 +112,45 @@ namespace NirvanaTests.ModelTests
             mock_context.Verify(c => c.SaveChanges(), Times.Once());
             // need to run method for ActCount
         }
+
+        [TestMethod]
+        public void NirvanaRepoCanCountTotalActs()
+        {
+            // arrange
+            ConnectMocksToData();
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+            string title = "Gave a friend a ride";
+            string description = "My friend was walking home from school, but I decided since it was cold it was better for them to ride with me";
+            DateTime date = new DateTime(2015, 01, 01);
+            RandomActsModel added_act = nirvana_repo.CreateAct(title, description, date, owner);
+            my_acts.Add(added_act);
+
+            // act
+            int result = nirvana_repo.GetActCount();
+
+            // assert
+            Assert.AreEqual(1, result);
+        }
+
+        [TestMethod]
+        public void NirvanaRepoCanCount4OneUser()
+        {
+            // arrange
+            ConnectMocksToData();
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+            string title = "Gave a friend a ride";
+            string description = "My friend was walking home from school, but I decided since it was cold it was better for them to ride with me";
+            DateTime date = new DateTime(2015, 01, 01);
+            RandomActsModel added_act = nirvana_repo.CreateAct(title, description, date, owner);
+            my_acts.Add(added_act);
+
+            // act
+            int result = nirvana_repo.GetActCount(owner);
+            int result2 = nirvana_repo.GetActCount(user1);
+
+            // assert
+            Assert.AreEqual(1, result);
+            Assert.AreEqual(0, result2);
+        }
     }
 }

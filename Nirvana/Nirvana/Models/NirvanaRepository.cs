@@ -38,6 +38,18 @@ namespace Nirvana.Models
 
             return _act;
         }
+
+        public int GetActCount()
+        {
+            var query = from acts in context.Acts select acts;
+
+            return query.Count();    
+        }
+
+        public int GetActCount(ApplicationUser user)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
