@@ -52,3 +52,7 @@ C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\bin\Debug\EntityFramewo
 C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
 C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\obj\Debug\NirvanaTests.dll
 C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\obj\Debug\NirvanaTests.pdb
+C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\bin\Debug\Moq.dll
+C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\bin\Debug\Moq.xml

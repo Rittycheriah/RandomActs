@@ -67,3 +67,5 @@ C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\bin\Microsoft.Owin.Security.
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.dll
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.pdb
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.csprojResolveAssemblyReference.cache
+C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\bin\Moq.dll
+C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\bin\Moq.xml
