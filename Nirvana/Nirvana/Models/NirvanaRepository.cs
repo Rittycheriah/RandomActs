@@ -65,7 +65,8 @@ namespace Nirvana.Models
 
         public List<Comment> GetAllComments()
         {
-            throw new NotImplementedException();
+            var query = from a in context.Acts select a;
+            return query.SelectMany(acts => acts.Comments).ToList();
         }
 
         public List<Comment> GetAllComments(RandomActsModel act)

@@ -152,5 +152,36 @@ namespace NirvanaTests.ModelTests
             Assert.AreEqual(1, result);
             Assert.AreEqual(0, result2);
         }
+
+        [TestMethod]
+        public void NirvanaRepoCanGetUserRank()
+        {
+            ConnectMocksToData();
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+            // not sure how to associate a rank with a user. Should user have a rank_id? How
+            // do I modify the user itself? 
+            Assert.Equals("Grasshopper", owner.Rank);
+        }
+
+        [TestMethod]
+        public void NirvanaRepoCanGetAllComments()
+        {
+            // arrange
+            var comment = new List<Comment>
+            {
+               new Comment { User = owner, UserComment = "a"}
+            };
+
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave donation", Owner = user1, Comments = comment });
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave donation", Owner = user2, Comments = comment });
+            ConnectMocksToData(); 
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+
+            // act
+            List<Comment> result = nirvana_repo.GetAllComments();
+
+            //assert
+            Assert.AreEqual(2, result.Count);
+        }
     }
 }
