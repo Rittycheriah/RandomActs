@@ -80,7 +80,7 @@ namespace Nirvana.Models
             throw new NotImplementedException();
         }
 
-        public Comment CreateComment(string curr_comment, ApplicationUser user, DateTime date)
+        public bool CreateComment(string curr_comment, ApplicationUser user, DateTime date)
         {
             throw new NotImplementedException();
         }

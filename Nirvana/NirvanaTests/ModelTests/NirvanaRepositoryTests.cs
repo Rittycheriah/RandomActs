@@ -14,6 +14,7 @@ namespace NirvanaTests.ModelTests
         private Mock<NirvanaContext> mock_context;
         private Mock<DbSet<RandomActsModel>> mock_acts;
         private List<RandomActsModel> my_acts;
+        private Mock<DbSet<Comment>> mock_comment;
         private List<Comment> my_comments;
         private List<Likes> my_likes;
         private ApplicationUser owner, user1, user2;
@@ -110,7 +111,6 @@ namespace NirvanaTests.ModelTests
             Assert.IsNotNull(added_act);
             mock_acts.Verify(n => n.Add(It.IsAny<RandomActsModel>()));
             mock_context.Verify(c => c.SaveChanges(), Times.Once());
-            // need to run method for ActCount
         }
 
         [TestMethod]
@@ -214,24 +214,18 @@ namespace NirvanaTests.ModelTests
         public void NirvanaRepoCanCreateComment()
         {
             // arrange
-            var comment = new List<Comment>
-            {
-               new Comment { User = owner, UserComment = "b"}
-            };
-
-            var comment2 = new List<Comment>
-            {
-                new Comment { User = user2, UserComment = "act"}
-            };
-
-            my_acts.Add(new RandomActsModel { RandomActId = 1, RandomActTitle = "puppy", Owner = user1, Comments = comment });
-            ConnectMocksToData();
             NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+            DateTime nu_date = new DateTime(2015, 01, 01);
+            RandomActsModel act = new RandomActsModel { RandomActId = 1 };
+            my_acts.Add(act);
+            Comment add_me = new Comment { ActId = 1, CommentId = 1, Date = nu_date, User = user1, UserComment = "man, I could totally go for coffee right now!" };
+            ConnectMocksToData();
 
-            // act
+            //Act
+            bool added_comment = nirvana_repo.CreateComment(add_me.UserComment, add_me.User, add_me.Date);
 
-            //assert
-
+            //Assert
+            Assert.IsTrue(added_comment);
         }
     }
 }
