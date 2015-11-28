@@ -11,5 +11,6 @@ namespace Nirvana.Models
         public string UserComment { get; set; }
         public int CommentId { get; set; }
         public DateTime Date { get; set; }
+        public int ActId { get; set; }
     }
 }

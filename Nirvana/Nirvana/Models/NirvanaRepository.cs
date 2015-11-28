@@ -69,7 +69,7 @@ namespace Nirvana.Models
             return query.SelectMany(acts => acts.Comments).ToList();
         }
 
-        public List<Comment> GetAllComments(RandomActsModel act)
+        public List<Comment> GetAllComments(int ActId)
         {
             throw new NotImplementedException();
         }

@@ -183,5 +183,37 @@ namespace NirvanaTests.ModelTests
             //assert
             Assert.AreEqual(2, result.Count);
         }
+
+        [TestMethod]
+        public void NirvanaRepoCanGetCommentByAct()
+        {
+            // arrange
+            var comment = new List<Comment>
+            {
+               new Comment { User = owner, UserComment = "b"}
+            };
+
+            var comment2 = new List<Comment>
+            {
+                new Comment { User = user2, UserComment = "act"}
+            };
+
+            my_acts.Add(new RandomActsModel { RandomActId = 1, RandomActTitle = "puppy", Owner = user1, Comments = comment});
+            my_acts.Add(new RandomActsModel { RandomActId = 2, RandomActTitle = "kitten saved", Owner = user2, Comments = comment });
+            ConnectMocksToData();
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+
+            // act
+            List<Comment> result = nirvana_repo.GetAllComments(1);
+
+            //assert
+            Assert.AreEqual(1, result.Count);
+        }
+
+        [TestMethod]
+        public void NirvanaRepoCanCreateComment()
+        {
+
+        }
     }
 }
