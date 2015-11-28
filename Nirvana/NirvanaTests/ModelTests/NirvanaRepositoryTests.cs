@@ -213,6 +213,24 @@ namespace NirvanaTests.ModelTests
         [TestMethod]
         public void NirvanaRepoCanCreateComment()
         {
+            // arrange
+            var comment = new List<Comment>
+            {
+               new Comment { User = owner, UserComment = "b"}
+            };
+
+            var comment2 = new List<Comment>
+            {
+                new Comment { User = user2, UserComment = "act"}
+            };
+
+            my_acts.Add(new RandomActsModel { RandomActId = 1, RandomActTitle = "puppy", Owner = user1, Comments = comment });
+            ConnectMocksToData();
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+
+            // act
+
+            //assert
 
         }
     }

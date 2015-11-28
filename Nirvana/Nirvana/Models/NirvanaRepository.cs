@@ -71,7 +71,8 @@ namespace Nirvana.Models
 
         public List<Comment> GetAllComments(int ActId)
         {
-            throw new NotImplementedException();
+            var query = from a in context.Acts where a.RandomActId == ActId select a;
+            return query.SelectMany(acts => acts.Comments).ToList();
         }
 
         public bool DeleteComment(int comment_id)
