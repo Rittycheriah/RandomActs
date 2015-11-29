@@ -120,9 +120,24 @@ namespace Nirvana.Models
             return result; 
         }
 
-        public bool UpdateComment(int comment_id)
+        public bool UpdateComment(int comment_id, string new_text)
         {
-            throw new NotImplementedException();
+            var query = from a in context.Comments where a.CommentId == comment_id select a;
+            Comment target_comment = null;
+            bool result = true;
+
+            try
+            {
+                target_comment = query.Single();
+                target_comment.UserComment = new_text;
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+
+            return result;
         }
 
         public bool GetLikes(int act_id)

@@ -153,15 +153,15 @@ namespace NirvanaTests.ModelTests
             Assert.AreEqual(0, result2);
         }
 
-        [TestMethod]
-        public void NirvanaRepoCanGetUserRank()
-        {
-            ConnectMocksToData();
-            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
-            // not sure how to associate a rank with a user. Should user have a rank_id? How
-            // do I modify the user itself? 
-            Assert.Equals("Grasshopper", owner.Rank);
-        }
+        //[TestMethod]
+        //public void NirvanaRepoCanGetUserRank()
+        //{
+        //    ConnectMocksToData();
+        //    NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+        //    // not sure how to associate a rank with a user. Should user have a rank_id? How
+        //    // do I modify the user itself? 
+        //    Assert.Equals("Grasshopper", owner.Rank);
+        //}
 
         [TestMethod]
         public void NirvanaRepoCanGetAllComments()
@@ -248,7 +248,19 @@ namespace NirvanaTests.ModelTests
         [TestMethod]
         public void NirvanaRepoCanUpdateComment()
         {
-            throw new NotImplementedException();
+            // arrange
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+            Comment comm_2Add = new Comment { ActId = 1, UserComment = "what up", CommentId = 1, User = user1 };
+            my_acts.Add(new RandomActsModel { RandomActId = 1, RandomActTitle = "walked an old lady across the street" });
+            ConnectMocksToData();
+            bool edit_me = nirvana_repo.CreateComment(comm_2Add, 1);
+            string the_change = "I think you walked my grandma dude.";
+
+            // act
+            bool result = nirvana_repo.UpdateComment(1, the_change);
+
+            // assert
+            Assert.IsTrue(result);
         }
 
         [TestMethod]
