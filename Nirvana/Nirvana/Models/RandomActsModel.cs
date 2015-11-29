@@ -15,5 +15,10 @@ namespace Nirvana.Models
         public virtual List<Comment> Comments { get; set; }
         public DateTime Date { get; set; }
         public string PicURL { get; set; }
+
+        public RandomActsModel()
+        {
+            Comments = new List<Comment>();
+        }
     }
 } 

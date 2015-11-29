@@ -75,14 +75,49 @@ namespace Nirvana.Models
             return query.SelectMany(acts => acts.Comments).ToList();
         }
 
-        public bool DeleteComment(int comment_id)
+        public bool DeleteComment(int ActId, int comment_id)
         {
-            throw new NotImplementedException();
+            var query = from a in context.Acts where a.RandomActId == ActId select a;
+            RandomActsModel target_act = null;
+            bool result = true;
+
+            try
+            {
+                target_act = query.SingleOrDefault<RandomActsModel>();
+                target_act.Comments.RemoveAll(t => t.CommentId == comment_id);
+                context.SaveChanges();
+                result = true;
+            }
+            catch (ArgumentException)
+            {
+                result = false;
+            }
+
+            return result;
         }
 
-        public bool CreateComment(string curr_comment, ApplicationUser user, DateTime date)
+        public bool CreateComment(Comment comm_2_add, int ActId)
         {
-            throw new NotImplementedException();
+            var query = from r in context.Acts where r.RandomActId == ActId select r;
+            RandomActsModel found_act = null;
+            bool result = true;
+
+            try
+            {
+                found_act = query.Single();
+                found_act.Comments.Add(comm_2_add);
+                context.SaveChanges();
+            }
+            catch (InvalidOperationException)
+            {
+                result = false;
+            }
+            catch (ArgumentNullException)
+            {
+                result = false;
+            }
+
+            return result; 
         }
 
         public bool UpdateComment(int comment_id)
