@@ -153,15 +153,16 @@ namespace NirvanaTests.ModelTests
             Assert.AreEqual(0, result2);
         }
 
-        //[TestMethod]
-        //public void NirvanaRepoCanGetUserRank()
-        //{
-        //    ConnectMocksToData();
-        //    NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
-        //    // not sure how to associate a rank with a user. Should user have a rank_id? How
-        //    // do I modify the user itself? 
-        //    Assert.Equals("Grasshopper", owner.Rank);
-        //}
+        [TestMethod]
+        public void NirvanaRepoCanGetUserRank()
+        {
+            throw new NotImplementedException();
+            //ConnectMocksToData();
+            //NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+            //// not sure how to associate a rank with a user. Should user have a rank_id? How
+            //// do I modify the user itself? 
+            //Assert.Equals("Grasshopper", owner.Rank);
+        }
 
         [TestMethod]
         public void NirvanaRepoCanGetAllComments()
@@ -254,6 +255,7 @@ namespace NirvanaTests.ModelTests
             my_acts.Add(new RandomActsModel { RandomActId = 1, RandomActTitle = "walked an old lady across the street" });
             ConnectMocksToData();
             bool edit_me = nirvana_repo.CreateComment(comm_2Add, 1);
+           
             string the_change = "I think you walked my grandma dude.";
 
             // act
@@ -277,6 +279,28 @@ namespace NirvanaTests.ModelTests
 
         [TestMethod]
         public void NirvanaRepoDefaultLikeIsFalse()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void NirvanaRepoCanSearchOtherActs()
+        {
+            // arrange
+
+            //act
+            
+            // assert
+        }
+
+        [TestMethod]
+        public void NirvanaRepoCanAddPointsToOtherUsers()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void NirvanaRepoCanFollowOtherUsers()
         {
             throw new NotImplementedException();
         }
