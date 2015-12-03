@@ -128,11 +128,16 @@ namespace Nirvana.Models
 
             try
             {
-                target_comment = query.Single();
+                target_comment = query.SingleOrDefault<Comment>();
                 target_comment.UserComment = new_text;
+                context.SaveChanges();
                 result = true;
             }
-            catch (Exception)
+            catch (ArgumentNullException)
+            {
+                result = false;
+            }
+            catch (InvalidOperationException)
             {
                 result = false;
             }

@@ -35,6 +35,7 @@ namespace NirvanaTests.ModelTests
         public void Initalize(){
             mock_context = new Mock<NirvanaContext>();
             mock_acts = new Mock<DbSet<RandomActsModel>>();
+            mock_comment = new Mock<DbSet<Comment>>();
             my_acts = new List<RandomActsModel>();
             owner = new ApplicationUser();
             user1 = new ApplicationUser();
@@ -250,11 +251,26 @@ namespace NirvanaTests.ModelTests
         public void NirvanaRepoCanUpdateComment()
         {
             // arrange
-            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
-            Comment comm_2Add = new Comment { ActId = 1, UserComment = "what up", CommentId = 1, User = user1 };
-            my_acts.Add(new RandomActsModel { RandomActId = 1, RandomActTitle = "walked an old lady across the street" });
             ConnectMocksToData();
-            bool edit_me = nirvana_repo.CreateComment(comm_2Add, 1);
+
+            my_acts.Add(new RandomActsModel { RandomActId = 1, RandomActTitle = "walked an old lady across the street" });
+
+            var data = my_comments.AsQueryable();
+
+            mock_comment.As<IQueryable<Comment>>().Setup(m => m.Provider).Returns(data.Provider);
+            mock_comment.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            mock_comment.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mock_comment.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
+
+            mock_context.Setup(m => m.Comments).Returns(mock_comment.Object);
+
+            mock_comment.Setup(m => m.Add(It.IsAny<Comment>())).Callback((Comment c) => my_comments.Add(c));
+
+            Comment comm_2Add = new Comment { ActId = 1, UserComment = "what up", CommentId = 1, User = user1 };
+
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+
+            my_comments.Add(comm_2Add);
            
             string the_change = "I think you walked my grandma dude.";
 
