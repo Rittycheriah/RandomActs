@@ -32,7 +32,7 @@ namespace Nirvana.Models
 
         public RandomActsModel CreateAct(string ActTitle, string ActDescription, DateTime ActDate, ApplicationUser owner)
         {
-            RandomActsModel _act = new RandomActsModel { RandomActTitle = ActTitle, RandomActDescription = ActDescription, Date = ActDate, Owner = owner };
+            RandomActsModel _act = new RandomActsModel { RandomActTitle = ActTitle, RandomActDescription = ActDescription, Date = ActDate, Owner = owner, PointsEarned = 3 };
             context.Acts.Add(_act);
             context.SaveChanges();
 
@@ -55,7 +55,8 @@ namespace Nirvana.Models
 
         public Rank GetUserRank(ApplicationUser user)
         {
-            throw new NotImplementedException();
+            var query = from b in context.Ranks where b.User.Id == user.Id select b;
+            return query.Single<Rank>();
         }
 
         public List<Rank> GetAllUsersRanks()

@@ -17,6 +17,7 @@ namespace NirvanaTests.ModelTests
         private Mock<DbSet<Comment>> mock_comment;
         private List<Comment> my_comments = new List<Comment>();
         private List<Likes> my_likes;
+        private List<Rank> my_rank;
         private ApplicationUser owner, user1, user2;
 
         private void ConnectMocksToData()
@@ -37,6 +38,7 @@ namespace NirvanaTests.ModelTests
             mock_acts = new Mock<DbSet<RandomActsModel>>();
             mock_comment = new Mock<DbSet<Comment>>();
             my_acts = new List<RandomActsModel>();
+            my_rank = new List<Rank>();
             owner = new ApplicationUser();
             user1 = new ApplicationUser();
             user2 = new ApplicationUser();
@@ -69,7 +71,7 @@ namespace NirvanaTests.ModelTests
        
             // Act
             List<RandomActsModel> ActsResult = nirvana_repo.GetAllActs();
-
+            
             // Assert
             Assert.AreEqual(2, ActsResult.Count);
         }
@@ -157,12 +159,22 @@ namespace NirvanaTests.ModelTests
         [TestMethod]
         public void NirvanaRepoCanGetUserRank()
         {
-            throw new NotImplementedException();
-            //ConnectMocksToData();
-            //NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
-            //// not sure how to associate a rank with a user. Should user have a rank_id? How
-            //// do I modify the user itself? 
-            //Assert.Equals("Grasshopper", owner.Rank);
+            //arrange
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave a donation", Owner = user1 });
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave someone a ride", Owner = user2 });
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Took care of someone's baby for a while", Owner = user1});
+            my_rank.Add(new Rank { User = user1 });
+            Rank exp_rank = my_rank.Single();
+            ConnectMocksToData();
+
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+            
+            // Act
+            Rank user_rank = nirvana_repo.GetUserRank(user1);
+
+            // Assert
+            Assert.AreEqual(exp_rank, user_rank);
+            
         }
 
         [TestMethod]
@@ -305,8 +317,9 @@ namespace NirvanaTests.ModelTests
             // arrange
 
             //act
-            
+
             // assert
+            throw new NotImplementedException();
         }
 
         [TestMethod]

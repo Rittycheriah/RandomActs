@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace Nirvana.Models
 {
@@ -14,5 +15,8 @@ namespace Nirvana.Models
         public bool SocialMedia { get; set; }
         public int BasePtsAllowance { get; set; }
         public int MinimumPtReq { get; set; }
+
+        [Required]
+        public virtual ApplicationUser User { get; set; }
     }
 }
