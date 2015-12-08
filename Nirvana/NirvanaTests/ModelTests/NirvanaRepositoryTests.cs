@@ -163,7 +163,6 @@ namespace NirvanaTests.ModelTests
             my_acts.Add(new RandomActsModel { RandomActTitle = "Gave a donation", Owner = user1 });
             my_acts.Add(new RandomActsModel { RandomActTitle = "Gave someone a ride", Owner = user2 });
             my_acts.Add(new RandomActsModel { RandomActTitle = "Took care of someone's baby for a while", Owner = user1});
-            my_rank.Add(new Rank { User = user1 });
             Rank exp_rank = my_rank.Single();
             ConnectMocksToData();
 

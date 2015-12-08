@@ -19,11 +19,9 @@ namespace NirvanaTests.ModelTests
         {
             RandomActsModel act = new RandomActsModel { RandomActId = 1};
             Likes _like = new Likes();
-            _like.Liked = true;
-            _like.ActId = act.RandomActId;
+            _like.Act = act;
 
-            Assert.AreEqual(true, _like.Liked);
-            Assert.AreEqual(1, _like.ActId);
+            Assert.AreEqual(act, _like.Act);
         }
     }
 }

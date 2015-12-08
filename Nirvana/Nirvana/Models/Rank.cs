@@ -8,6 +8,7 @@ namespace Nirvana.Models
 {
     public class Rank
     {
+        [Key]
         public int Rank_Id { get; set; }
         public int Rank_Code { get; set; }
         public string Name { get; set; }
@@ -15,8 +16,5 @@ namespace Nirvana.Models
         public bool SocialMedia { get; set; }
         public int BasePtsAllowance { get; set; }
         public int MinimumPtReq { get; set; }
-
-        [Required]
-        public virtual ApplicationUser User { get; set; }
     }
 }

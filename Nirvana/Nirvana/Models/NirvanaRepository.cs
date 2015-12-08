@@ -55,8 +55,9 @@ namespace Nirvana.Models
 
         public Rank GetUserRank(ApplicationUser user)
         {
-            var query = from b in context.Ranks where b.User.Id == user.Id select b;
-            return query.Single<Rank>();
+            //var query = from b in context.Ranks where b.User.Id == user.Id select b;
+            //return query.Single<Rank>();
+            throw new NotImplementedException();
         }
 
         public List<Rank> GetAllUsersRanks()
