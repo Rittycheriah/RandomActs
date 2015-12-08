@@ -294,9 +294,37 @@ namespace NirvanaTests.ModelTests
         }
 
         [TestMethod]
-        public void NirvanaRepoCanGetLikes()
+        public void NirvanaRepoCanGetLikeCountForAnAct()
         {
-            throw new NotImplementedException();
+            // arrange
+            mock_acts.Setup(b => b.Add(It.IsAny<RandomActsModel>())).Callback((RandomActsModel act) => my_acts.Add(act));
+            mock_context.Setup(a => a.Acts).Returns(mock_acts.Object);
+
+            mock_likes.Setup(e => e.Add(It.IsAny<Likes>())).Callback((Likes like) => my_likes.Add(like));
+            mock_context.Setup(c => c.Likes).Returns(mock_likes.Object);
+            ConnectMocksToData();
+
+            RandomActsModel to_like = new RandomActsModel { RandomActTitle = "Gave donation", Owner = user2, RandomActId = 1 };
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+
+            Likes created_like = nirvana_repo.CreateLike(to_like, user1);
+            Likes created_like2 = nirvana_repo.CreateLike(to_like, owner);
+
+            var like_data = my_likes.AsQueryable();
+
+            mock_likes.As<IQueryable<Likes>>().Setup(m => m.Provider).Returns(like_data.Provider);
+            mock_likes.As<IQueryable<Likes>>().Setup(m => m.GetEnumerator()).Returns(like_data.GetEnumerator);
+            mock_likes.As<IQueryable<Likes>>().Setup(m => m.ElementType).Returns(like_data.ElementType);
+            mock_likes.As<IQueryable<Likes>>().Setup(m => m.Expression).Returns(like_data.Expression);
+
+            mock_context.Setup(m => m.Likes).Returns(mock_likes.Object);
+
+
+            // act
+            int LikesResult = nirvana_repo.GetLikeCount(1);
+
+            // assert
+            Assert.AreEqual(2, LikesResult);
         }
 
         [TestMethod]
