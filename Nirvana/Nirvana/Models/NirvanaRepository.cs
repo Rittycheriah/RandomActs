@@ -147,14 +147,53 @@ namespace Nirvana.Models
             return result;
         }
 
-        public bool GetLikes(int act_id)
-        {
-            throw new NotImplementedException();
-        }
-
         public int GetLikeCount(int act_id)
         {
-            throw new NotImplementedException();
+            var query = from a in context.Likes where a.Act.RandomActId == act_id select a;
+            int result = 0;
+            List<Likes> current_num_of_likes = new List<Likes>();
+
+            try
+            {
+                current_num_of_likes = query.ToList();
+                result = current_num_of_likes.Count;
+            }
+            catch (ArgumentException)
+            {
+                result = -1;
+            }
+
+            return result;
+        }
+
+        public Likes CreateLike(RandomActsModel act, ApplicationUser UserWhoLiked)
+        {
+            Likes create_me = new Likes { Act = act, User = UserWhoLiked };
+            context.Likes.Add(create_me);
+            context.SaveChanges();
+
+            return create_me;
+        }
+
+        public bool DeleteLike(int like_id)
+        {
+            var query = from a in context.Likes where a.LikeId == like_id select a;
+            Likes target_like = null;
+            bool result = true;
+
+            try
+            {
+                target_like = query.Single<Likes>();
+                context.Likes.Remove(target_like);
+                context.SaveChanges();
+                result = true;
+            }
+            catch (ArgumentException)
+            {
+                result = false;
+            }
+
+            return result;
         }
     }
 
