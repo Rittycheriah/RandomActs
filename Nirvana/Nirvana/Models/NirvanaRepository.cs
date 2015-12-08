@@ -165,6 +165,27 @@ namespace Nirvana.Models
 
             return create_me;
         }
+
+        public bool DeleteLike(int like_id)
+        {
+            var query = from a in context.Likes where a.LikeId == like_id select a;
+            Likes target_like = null;
+            bool result = true;
+
+            try
+            {
+                target_like = query.Single<Likes>();
+                context.Likes.Remove(target_like);
+                context.SaveChanges();
+                result = true;
+            }
+            catch (ArgumentException)
+            {
+                result = false;
+            }
+
+            return result;
+        }
     }
 
 }

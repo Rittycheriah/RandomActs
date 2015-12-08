@@ -320,9 +320,29 @@ namespace NirvanaTests.ModelTests
         }
 
         [TestMethod]
-        public void NirvanaRepoDefaultLikeIsFalse()
+        public void NirvanaRepoCanDeleteLike()
         {
-            throw new NotImplementedException();
+            // arrange
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+            my_likes.Add(new Likes { User = owner, LikeId = 1 });
+            RandomActsModel to_like = new RandomActsModel { RandomActTitle = "Gave donation", Owner = user2, Likes = my_likes };
+
+            ConnectMocksToData();
+
+            var like_data = my_likes.AsQueryable();
+
+            mock_likes.As<IQueryable<Likes>>().Setup(m => m.Provider).Returns(like_data.Provider);
+            mock_likes.As<IQueryable<Likes>>().Setup(m => m.GetEnumerator()).Returns(like_data.GetEnumerator);
+            mock_likes.As<IQueryable<Likes>>().Setup(m => m.ElementType).Returns(like_data.ElementType);
+            mock_likes.As<IQueryable<Likes>>().Setup(m => m.Expression).Returns(like_data.Expression);
+
+            mock_context.Setup(m => m.Likes).Returns(mock_likes.Object);
+
+            // act
+            bool deleted_like = nirvana_repo.DeleteLike(1);
+
+            // Assert
+            Assert.IsTrue(deleted_like);
         }
 
         [TestMethod]
