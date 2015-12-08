@@ -15,8 +15,9 @@ namespace NirvanaTests.ModelTests
         private Mock<DbSet<RandomActsModel>> mock_acts;
         private List<RandomActsModel> my_acts;
         private Mock<DbSet<Comment>> mock_comment;
+        private Mock<DbSet<Likes>> mock_likes;
         private List<Comment> my_comments = new List<Comment>();
-        private List<Likes> my_likes;
+        private List<Likes> my_likes = new List<Likes>();
         private List<Rank> my_rank;
         private ApplicationUser owner, user1, user2;
 
@@ -37,8 +38,10 @@ namespace NirvanaTests.ModelTests
             mock_context = new Mock<NirvanaContext>();
             mock_acts = new Mock<DbSet<RandomActsModel>>();
             mock_comment = new Mock<DbSet<Comment>>();
+            mock_likes = new Mock<DbSet<Likes>>();
             my_acts = new List<RandomActsModel>();
             my_rank = new List<Rank>();
+            my_likes = new List<Likes>();
             owner = new ApplicationUser();
             user1 = new ApplicationUser();
             user2 = new ApplicationUser();
@@ -163,7 +166,6 @@ namespace NirvanaTests.ModelTests
             my_acts.Add(new RandomActsModel { RandomActTitle = "Gave a donation", Owner = user1 });
             my_acts.Add(new RandomActsModel { RandomActTitle = "Gave someone a ride", Owner = user2 });
             my_acts.Add(new RandomActsModel { RandomActTitle = "Took care of someone's baby for a while", Owner = user1});
-            Rank exp_rank = my_rank.Single();
             ConnectMocksToData();
 
             NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
@@ -172,8 +174,7 @@ namespace NirvanaTests.ModelTests
             Rank user_rank = nirvana_repo.GetUserRank(user1);
 
             // Assert
-            Assert.AreEqual(exp_rank, user_rank);
-            
+            Assert.AreEqual("Grasshopper", user_rank.Name);           
         }
 
         [TestMethod]
@@ -301,7 +302,21 @@ namespace NirvanaTests.ModelTests
         [TestMethod]
         public void NirvanaRepoCanCreateLike()
         {
-            throw new NotImplementedException();
+            // arrange
+            mock_acts.Setup(b => b.Add(It.IsAny<RandomActsModel>())).Callback((RandomActsModel act) => my_acts.Add(act));
+            mock_context.Setup(a => a.Acts).Returns(mock_acts.Object);
+
+            mock_likes.Setup(e => e.Add(It.IsAny<Likes>())).Callback((Likes like) => my_likes.Add(like));
+            mock_context.Setup(c => c.Likes).Returns(mock_likes.Object);
+            ConnectMocksToData();
+            RandomActsModel to_like = new RandomActsModel { RandomActTitle = "Gave donation", Owner = user2 };
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+
+            // act
+            Likes result = nirvana_repo.CreateLike(to_like, user1);
+
+            //assert
+            Assert.AreEqual(user1, result.User);
         }
 
         [TestMethod]

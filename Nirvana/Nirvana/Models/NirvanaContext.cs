@@ -12,6 +12,6 @@ namespace Nirvana.Models
         public virtual DbSet<RandomActsModel> Acts { get; set; }
         public virtual IDbSet<Comment> Comments { get; set; }
         public virtual IDbSet<Rank> Ranks { get; set; }
-        public virtual IDbSet<Likes> Likes { get; set; }
+        public virtual DbSet<Likes> Likes { get; set; }
     }
 }

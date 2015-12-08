@@ -156,6 +156,15 @@ namespace Nirvana.Models
         {
             throw new NotImplementedException();
         }
+
+        public Likes CreateLike(RandomActsModel act, ApplicationUser UserWhoLiked)
+        {
+            Likes create_me = new Likes { Act = act, User = UserWhoLiked };
+            context.Likes.Add(create_me);
+            context.SaveChanges();
+
+            return create_me;
+        }
     }
 
 }

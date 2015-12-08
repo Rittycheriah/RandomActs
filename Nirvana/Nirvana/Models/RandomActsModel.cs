@@ -15,12 +15,14 @@ namespace Nirvana.Models
         public string RandomActDescription { get; set; }
         public int PointsEarned { get; set; }
         public virtual List<Comment> Comments { get; set; }
+        public virtual List<Likes> Likes { get; set; }
         public DateTime Date { get; set; }
         public string PicURL { get; set; }
 
         public RandomActsModel()
         {
             Comments = new List<Comment>();
+            Likes = new List<Likes>();
         }
     }
 } 
