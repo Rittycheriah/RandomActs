@@ -8,8 +8,10 @@ namespace Nirvana.Models
 {
     public class RandomActsModel
     {
-        [Key]
+        [Required]
         public ApplicationUser Owner { get; set; }
+
+        [Key]
         public int RandomActId { get; set; }
         public string RandomActTitle { get; set; }
         public string RandomActDescription { get; set; }

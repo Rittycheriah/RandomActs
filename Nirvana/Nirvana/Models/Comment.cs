@@ -8,8 +8,10 @@ namespace Nirvana.Models
 {
     public class Comment
     {
-        [Key]
+        [Required]
         public ApplicationUser User { get; set; }
+
+        [Key]
         public string UserComment { get; set; }
         public int CommentId { get; set; }
         public DateTime Date { get; set; }

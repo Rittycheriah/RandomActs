@@ -6,12 +6,18 @@ using System.Data.Entity;
 
 namespace Nirvana.Models
 {
-    public class NirvanaContext : DbContext
+    public class NirvanaContext : ApplicationDbContext
     {
         // Need to find the connection string for DB web.config
         public virtual DbSet<RandomActsModel> Acts { get; set; }
         public virtual IDbSet<Comment> Comments { get; set; }
         public virtual IDbSet<Rank> Ranks { get; set; }
         public virtual DbSet<Likes> Likes { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
+
 }
