@@ -119,9 +119,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nirvana\Nirvana.csproj">
+    <ProjectReference Include="..\Nirvana\NirvanaReset.csproj">
       <Project>{5B1721C1-536F-4CEB-BE65-8E11907E68D0}</Project>
-      <Name>Nirvana</Name>
+      <Name>NirvanaReset</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

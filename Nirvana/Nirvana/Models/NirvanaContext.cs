@@ -13,6 +13,7 @@ namespace Nirvana.Models
         public virtual IDbSet<Comment> Comments { get; set; }
         public virtual IDbSet<Rank> Ranks { get; set; }
         public virtual DbSet<Likes> Likes { get; set; }
+        public virtual DbSet<RankDefinitions> Definitions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

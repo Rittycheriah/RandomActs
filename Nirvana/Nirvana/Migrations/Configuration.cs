@@ -26,6 +26,14 @@ namespace Nirvana.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            // context.staticRanks.AddOrUpdate(\
+            //      a => a.Title, 
+            //     new staticRank { 
+            // );
+
+            context.Definitions.AddOrUpdate(
+               
+            );
         }
     }
 }
