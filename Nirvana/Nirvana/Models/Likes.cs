@@ -9,7 +9,7 @@ namespace Nirvana.Models
     public class Likes
     {
         // until a person likes something, a like does not exist
-        // unlike === delete
+        // unlike ==s delete
         [Required]
         public ApplicationUser User { get; set; }
         public RandomActsModel Act { get; set; }

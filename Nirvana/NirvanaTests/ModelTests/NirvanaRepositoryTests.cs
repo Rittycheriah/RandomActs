@@ -387,6 +387,8 @@ namespace NirvanaTests.ModelTests
         [TestMethod]
         public void NirvanaRepoCanAddPointsToOtherUsers()
         {
+            // in theory, if a different user likes someone else's act, 
+            // it should add points to them in accordance with their rank
             throw new NotImplementedException();
         }
 
