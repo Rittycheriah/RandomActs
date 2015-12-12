@@ -75,3 +75,5 @@ C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\bin\System.Web.Http.WebHost.
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\bin\System.Net.Http.Formatting.xml
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\bin\System.Web.Http.xml
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\bin\System.Web.Http.WebHost.xml
+C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.Migrations.InitialCreate.resources
+C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.csproj.GenerateResource.Cache

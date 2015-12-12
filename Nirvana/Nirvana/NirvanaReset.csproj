@@ -190,9 +190,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201512102203395_InitialCreate.cs" />
-    <Compile Include="Migrations\201512102203395_InitialCreate.Designer.cs">
-      <DependentUpon>201512102203395_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201512102033555_InitialCreate.cs" />
+    <Compile Include="Migrations\201512102033555_InitialCreate.Designer.cs">
+      <DependentUpon>201512102033555_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -204,7 +204,6 @@
     <Compile Include="Models\NirvanaRepository.cs" />
     <Compile Include="Models\RandomActsModel.cs" />
     <Compile Include="Models\Rank.cs" />
-    <Compile Include="Models\RankDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -276,8 +275,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512102203395_InitialCreate.resx">
-      <DependentUpon>201512102203395_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512102033555_InitialCreate.resx">
+      <DependentUpon>201512102033555_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
