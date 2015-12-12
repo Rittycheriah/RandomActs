@@ -19,6 +19,7 @@ namespace NirvanaTests.ModelTests
         private Mock<DbSet<Comment>> mock_comment;
         private Mock<DbSet<Likes>> mock_likes;
         private Mock<DbSet<Rank>> mock_individual_rank;
+        private Mock<DbSet<RankDefinitions>> mock_definitions;
         private List<Rank> my_rank = new List<Rank>();
         private ApplicationUser owner, user1, user2;
 
@@ -41,6 +42,7 @@ namespace NirvanaTests.ModelTests
             mock_comment = new Mock<DbSet<Comment>>();
             mock_likes = new Mock<DbSet<Likes>>();
             mock_individual_rank = new Mock<DbSet<Rank>>();
+            mock_definitions = new Mock<DbSet<RankDefinitions>>();
             my_acts = new List<RandomActsModel>();
             my_rank = new List<Rank>();
             my_likes = new List<Likes>();
@@ -199,6 +201,13 @@ namespace NirvanaTests.ModelTests
 
             var definitions = ExDefinitions.AsQueryable();
 
+            mock_definitions.As<IQueryable<RankDefinitions>>().Setup(n => n.Provider).Returns(definitions.Provider);
+            mock_definitions.As<IQueryable<RankDefinitions>>().Setup(n => n.GetEnumerator()).Returns(definitions.GetEnumerator());
+            mock_definitions.As<IQueryable<RankDefinitions>>().Setup(n => n.ElementType).Returns(definitions.ElementType);
+            mock_definitions.As<IQueryable<RankDefinitions>>().Setup(n => n.Expression).Returns(definitions.Expression);
+
+            mock_context.Setup(v => v.Definitions).Returns(mock_definitions.Object);
+
             var current_rank = my_rank.AsQueryable();
 
             mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.Provider).Returns(current_rank.Provider);
@@ -218,6 +227,7 @@ namespace NirvanaTests.ModelTests
             Rank user_rank = nirvana_repo.GetUserRank(user1);
 
             // Assert
+            Assert.AreEqual(6, nirvana_repo.GetTotalPoints(user1));
             Assert.AreEqual("Grasshopper", user_rank.Name);           
         }
 
