@@ -55,9 +55,59 @@ namespace Nirvana.Models
 
         public Rank GetUserRank(ApplicationUser user)
         {
-            //var query = from b in context.Ranks where b.User.Id == user.Id select b;
-            //return query.Single<Rank>();
-            throw new NotImplementedException();
+            int TotalPts = GetTotalPoints(user);
+            Rank UserRank = new Rank();
+            RankDefinitions this_rank = new RankDefinitions();
+
+            if (TotalPts < 10 && TotalPts > 0)
+            {
+                var query = context.Definitions.Where(n => n.RankingCode == 1);
+                this_rank = query.First();
+            }
+            else if (TotalPts > 10 && TotalPts < 20)
+            {
+                var query = context.Definitions.Where(n => n.RankingCode == 2);
+                this_rank = query.First();
+            }
+            else if (TotalPts > 20 && TotalPts < 30)
+            {
+                var query = context.Definitions.Where(n => n.RankingCode == 3);
+                this_rank = query.First();
+            }
+            else if (TotalPts > 30 && TotalPts < 40)
+            {
+                var query = context.Definitions.Where(n => n.RankingCode == 4);
+                this_rank = query.First();
+            }
+            else if (TotalPts > 40 && TotalPts < 60)
+            {
+                var query = context.Definitions.Where(n => n.RankingCode == 5);
+                this_rank = query.First();
+            }
+            else if (TotalPts > 60 && TotalPts < 75)
+            {
+                var query = context.Definitions.Where(n => n.RankingCode == 6);
+                this_rank = query.First();
+            }
+            else if (TotalPts > 75 && TotalPts < 100)
+            {
+                var query = context.Definitions.Where(n => n.RankingCode == 7);
+                this_rank = query.First();
+            }
+            else if (TotalPts > 100 && TotalPts < 200)
+            {
+                var query = context.Definitions.Where(n => n.RankingCode == 8);
+                this_rank = query.First();
+            }
+
+            UserRank.Name = this_rank.RankingName;
+            UserRank.BasePtsAllowance = this_rank.RankingBasePts;
+            UserRank.CommentFeat = this_rank.RankingComments;
+            UserRank.MinimumPtReq = this_rank.RankingMinPt;
+            UserRank.SocialMedia = this_rank.RankingSocial;
+
+            return UserRank;
+
         }
 
         public List<Rank> GetAllUsersRanks()
@@ -194,6 +244,16 @@ namespace Nirvana.Models
             }
 
             return result;
+        }
+
+        public int GetTotalPoints(ApplicationUser user1)
+        {
+            var query = from a in context.Acts where a.Owner.Id == user1.Id select a;
+
+            List<int> UserActPoints = new List<int>();
+            UserActPoints = query.Select(acts => acts.PointsEarned).ToList();
+
+            return UserActPoints.Sum();
         }
     }
 
