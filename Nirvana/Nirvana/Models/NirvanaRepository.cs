@@ -195,6 +195,16 @@ namespace Nirvana.Models
 
             return result;
         }
+
+        public int GetTotalPoints(ApplicationUser user1)
+        {
+            var query = from a in context.Acts where a.Owner.Id == user1.Id select a;
+
+            List<int> UserActPoints = new List<int>();
+            UserActPoints = query.Select(acts => acts.PointsEarned).ToList();
+
+            return UserActPoints.Sum();
+        }
     }
 
 }

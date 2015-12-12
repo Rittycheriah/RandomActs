@@ -13,12 +13,13 @@ namespace NirvanaTests.ModelTests
     {
         private Mock<NirvanaContext> mock_context;
         private Mock<DbSet<RandomActsModel>> mock_acts;
+        private List<Likes> my_likes;
+        private List<Comment> my_comments;
         private List<RandomActsModel> my_acts;
         private Mock<DbSet<Comment>> mock_comment;
         private Mock<DbSet<Likes>> mock_likes;
-        private List<Comment> my_comments = new List<Comment>();
-        private List<Likes> my_likes = new List<Likes>();
-        private List<Rank> my_rank;
+        private Mock<DbSet<Rank>> mock_individual_rank;
+        private List<Rank> my_rank = new List<Rank>();
         private ApplicationUser owner, user1, user2;
 
         private void ConnectMocksToData()
@@ -39,9 +40,11 @@ namespace NirvanaTests.ModelTests
             mock_acts = new Mock<DbSet<RandomActsModel>>();
             mock_comment = new Mock<DbSet<Comment>>();
             mock_likes = new Mock<DbSet<Likes>>();
+            mock_individual_rank = new Mock<DbSet<Rank>>();
             my_acts = new List<RandomActsModel>();
             my_rank = new List<Rank>();
             my_likes = new List<Likes>();
+            my_comments = new List<Comment>();
             owner = new ApplicationUser();
             user1 = new ApplicationUser();
             user2 = new ApplicationUser();
@@ -160,12 +163,53 @@ namespace NirvanaTests.ModelTests
         }
 
         [TestMethod]
+        public void NirvanaRepoCanSumPoints()
+        {
+            //arrange
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave a donation", Owner = user1, PointsEarned = 3 });
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave someone a ride", Owner = user1, PointsEarned = 3 });
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Took care of someone's baby for a while", Owner = user1, PointsEarned = 3 });
+            ConnectMocksToData();
+
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+            //act
+            int result = nirvana_repo.GetTotalPoints(user1);
+
+            // assert
+            Assert.AreEqual(9, result);
+
+        }
+
+        [TestMethod]
         public void NirvanaRepoCanGetUserRank()
         {
             //arrange
-            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave a donation", Owner = user1 });
-            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave someone a ride", Owner = user2 });
-            my_acts.Add(new RandomActsModel { RandomActTitle = "Took care of someone's baby for a while", Owner = user1});
+
+            List<RankDefinitions> ExDefinitions = new List<RankDefinitions>
+            {
+                new RankDefinitions { RankingCode = 1, RankingBasePts = 3, RankingComments = false, RankingMinPt = 0, RankingName = "Grasshopper", RankingSocial = false},
+                new RankDefinitions { RankingCode = 2, RankingBasePts = 3, RankingComments = true, RankingMinPt = 20, RankingName = "Student" , RankingSocial = false},
+                new RankDefinitions { RankingCode = 3, RankingBasePts = 3, RankingComments = true, RankingMinPt = 30, RankingName = "Novice", RankingSocial = true},
+                new RankDefinitions { RankingCode = 4, RankingBasePts = 6, RankingComments = true, RankingMinPt = 40, RankingName = "Apprentice", RankingSocial = true},
+                new RankDefinitions { RankingCode = 5, RankingBasePts = 8, RankingComments = true, RankingMinPt = 60, RankingName = "Teacher", RankingSocial = true},
+                new RankDefinitions { RankingCode = 6, RankingBasePts = 12, RankingComments = true, RankingMinPt = 75, RankingName = "Monk", RankingSocial = true},
+                new RankDefinitions { RankingCode = 7, RankingBasePts = 15, RankingComments = true, RankingMinPt = 100, RankingName = "Elder", RankingSocial = true},
+                new RankDefinitions { RankingCode = 8, RankingBasePts = 20, RankingComments = true, RankingMinPt = 150, RankingName = "Nirvana", RankingSocial = true}
+            };
+
+            var definitions = ExDefinitions.AsQueryable();
+
+            var current_rank = my_rank.AsQueryable();
+
+            mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.Provider).Returns(current_rank.Provider);
+            mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.GetEnumerator()).Returns(current_rank.GetEnumerator());
+            mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.ElementType).Returns(current_rank.ElementType);
+            mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.Expression).Returns(current_rank.Expression);
+
+            mock_context.Setup(n => n.Ranks).Returns(mock_individual_rank.Object);
+
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave a donation", Owner = user1, PointsEarned = 3 });
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave someone a ride", Owner = user1, PointsEarned = 3 });
             ConnectMocksToData();
 
             NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
