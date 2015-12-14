@@ -232,6 +232,59 @@ namespace NirvanaTests.ModelTests
         }
 
         [TestMethod]
+        public void NirvanaRepoCanGetAllUsersRanks()
+        {
+            //arrange
+
+            List<RankDefinitions> ExDefinitions = new List<RankDefinitions>
+            {
+                new RankDefinitions { RankingCode = 1, RankingBasePts = 3, RankingComments = false, RankingMinPt = 0, RankingName = "Grasshopper", RankingSocial = false},
+                new RankDefinitions { RankingCode = 2, RankingBasePts = 3, RankingComments = true, RankingMinPt = 20, RankingName = "Student" , RankingSocial = false},
+                new RankDefinitions { RankingCode = 3, RankingBasePts = 3, RankingComments = true, RankingMinPt = 30, RankingName = "Novice", RankingSocial = true},
+                new RankDefinitions { RankingCode = 4, RankingBasePts = 6, RankingComments = true, RankingMinPt = 40, RankingName = "Apprentice", RankingSocial = true},
+                new RankDefinitions { RankingCode = 5, RankingBasePts = 8, RankingComments = true, RankingMinPt = 60, RankingName = "Teacher", RankingSocial = true},
+                new RankDefinitions { RankingCode = 6, RankingBasePts = 12, RankingComments = true, RankingMinPt = 75, RankingName = "Monk", RankingSocial = true},
+                new RankDefinitions { RankingCode = 7, RankingBasePts = 15, RankingComments = true, RankingMinPt = 100, RankingName = "Elder", RankingSocial = true},
+                new RankDefinitions { RankingCode = 8, RankingBasePts = 20, RankingComments = true, RankingMinPt = 150, RankingName = "Nirvana", RankingSocial = true}
+            };
+
+            var definitions = ExDefinitions.AsQueryable();
+
+            mock_definitions.As<IQueryable<RankDefinitions>>().Setup(n => n.Provider).Returns(definitions.Provider);
+            mock_definitions.As<IQueryable<RankDefinitions>>().Setup(n => n.GetEnumerator()).Returns(definitions.GetEnumerator());
+            mock_definitions.As<IQueryable<RankDefinitions>>().Setup(n => n.ElementType).Returns(definitions.ElementType);
+            mock_definitions.As<IQueryable<RankDefinitions>>().Setup(n => n.Expression).Returns(definitions.Expression);
+
+            mock_context.Setup(v => v.Definitions).Returns(mock_definitions.Object);
+
+            var current_rank = my_rank.AsQueryable();
+
+            mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.Provider).Returns(current_rank.Provider);
+            mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.GetEnumerator()).Returns(current_rank.GetEnumerator());
+            mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.ElementType).Returns(current_rank.ElementType);
+            mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.Expression).Returns(current_rank.Expression);
+
+            mock_context.Setup(n => n.Ranks).Returns(mock_individual_rank.Object);
+
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave a donation", Owner = user1, PointsEarned = 6 });
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave someone a ride", Owner = user1, PointsEarned = 3 });
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Let someone take my place", Owner = user2, PointsEarned = 6 });
+            my_acts.Add(new RandomActsModel { RandomActTitle = "c", Owner = owner, PointsEarned = 3});
+            ConnectMocksToData();
+
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+
+            // Act
+            Dictionary<string, int> user_rank = nirvana_repo.GetAllUsersRanks();
+
+            // Assert
+            int recValue = 0;
+            Assert.AreEqual(9, user_rank.TryGetValue(user1.Email, out recValue));
+            Assert.AreEqual(6, user_rank.TryGetValue(user2.Email, out recValue));
+            Assert.AreEqual(3, user_rank.TryGetValue(owner.Email, out recValue));
+        }
+
+        [TestMethod]
         public void NirvanaRepoCanGetAllComments()
         {
             // arrange
@@ -441,9 +494,54 @@ namespace NirvanaTests.ModelTests
         [TestMethod]
         public void NirvanaRepoCanAddPointsToOtherUsers()
         {
-            // in theory, if a different user likes someone else's act, 
-            // it should add points to them in accordance with their rank
-            throw new NotImplementedException();
+            //arrange
+
+            List<RankDefinitions> ExDefinitions = new List<RankDefinitions>
+            {
+                new RankDefinitions { RankingCode = 1, RankingBasePts = 3, RankingComments = false, RankingMinPt = 0, RankingName = "Grasshopper", RankingSocial = false},
+                new RankDefinitions { RankingCode = 2, RankingBasePts = 3, RankingComments = true, RankingMinPt = 20, RankingName = "Student" , RankingSocial = false},
+                new RankDefinitions { RankingCode = 3, RankingBasePts = 3, RankingComments = true, RankingMinPt = 30, RankingName = "Novice", RankingSocial = true},
+                new RankDefinitions { RankingCode = 4, RankingBasePts = 6, RankingComments = true, RankingMinPt = 40, RankingName = "Apprentice", RankingSocial = true},
+                new RankDefinitions { RankingCode = 5, RankingBasePts = 8, RankingComments = true, RankingMinPt = 60, RankingName = "Teacher", RankingSocial = true},
+                new RankDefinitions { RankingCode = 6, RankingBasePts = 12, RankingComments = true, RankingMinPt = 75, RankingName = "Monk", RankingSocial = true},
+                new RankDefinitions { RankingCode = 7, RankingBasePts = 15, RankingComments = true, RankingMinPt = 100, RankingName = "Elder", RankingSocial = true},
+                new RankDefinitions { RankingCode = 8, RankingBasePts = 20, RankingComments = true, RankingMinPt = 150, RankingName = "Nirvana", RankingSocial = true}
+            };
+
+            var definitions = ExDefinitions.AsQueryable();
+
+            mock_definitions.As<IQueryable<RankDefinitions>>().Setup(n => n.Provider).Returns(definitions.Provider);
+            mock_definitions.As<IQueryable<RankDefinitions>>().Setup(n => n.GetEnumerator()).Returns(definitions.GetEnumerator());
+            mock_definitions.As<IQueryable<RankDefinitions>>().Setup(n => n.ElementType).Returns(definitions.ElementType);
+            mock_definitions.As<IQueryable<RankDefinitions>>().Setup(n => n.Expression).Returns(definitions.Expression);
+
+            mock_context.Setup(v => v.Definitions).Returns(mock_definitions.Object);
+
+            var current_rank = my_rank.AsQueryable();
+
+            mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.Provider).Returns(current_rank.Provider);
+            mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.GetEnumerator()).Returns(current_rank.GetEnumerator());
+            mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.ElementType).Returns(current_rank.ElementType);
+            mock_individual_rank.As<IQueryable<Rank>>().Setup(n => n.Expression).Returns(current_rank.Expression);
+
+            mock_context.Setup(n => n.Ranks).Returns(mock_individual_rank.Object);
+
+            mock_acts.Setup(b => b.Add(It.IsAny<RandomActsModel>())).Callback((RandomActsModel act) => my_acts.Add(act));
+            mock_context.Setup(a => a.Acts).Returns(mock_acts.Object);
+
+            mock_likes.Setup(e => e.Add(It.IsAny<Likes>())).Callback((Likes like) => my_likes.Add(like));
+            mock_context.Setup(c => c.Likes).Returns(mock_likes.Object);
+
+            ConnectMocksToData();
+            RandomActsModel to_like = new RandomActsModel { RandomActTitle = "Gave donation", RandomActDescription = "gave a donation to St. Jude's", Owner = user2, Date = DateTime.Now};
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+            nirvana_repo.CreateAct(to_like.RandomActTitle, to_like.RandomActDescription, to_like.Date, to_like.Owner);
+
+            //Act
+            int totalpoints = nirvana_repo.AddLikePts(to_like, user2);
+
+            // Assert
+            Assert.AreEqual(6, totalpoints);
         }
 
         [TestMethod]

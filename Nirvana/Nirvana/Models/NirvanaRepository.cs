@@ -21,7 +21,7 @@ namespace Nirvana.Models
 
         public List<RandomActsModel> GetAllActs()
         {
-            return context.Acts.ToList();   
+            return context.Acts.ToList();
         }
 
         public List<RandomActsModel> GetAllActs(ApplicationUser _user)
@@ -42,8 +42,7 @@ namespace Nirvana.Models
         public int GetActCount()
         {
             var query = from acts in context.Acts select acts;
-
-            return query.Count();    
+            return query.Count();
         }
 
         public int GetActCount(ApplicationUser user)
@@ -110,9 +109,22 @@ namespace Nirvana.Models
 
         }
 
-        public List<Rank> GetAllUsersRanks()
+        public Dictionary<string, int> GetAllUsersRanks()
         {
-            throw new NotImplementedException();
+            var query = from a in context.Users select a;
+            List<ApplicationUser> AllUsers = query.Select(a => a).ToList();
+            Dictionary<string, int> Leaderboard = new Dictionary<string, int>();
+
+            foreach (ApplicationUser user in AllUsers)
+            {
+                int TotalPoints = GetTotalPoints(user);
+
+                Leaderboard.Add(user.Email.ToString(), TotalPoints);
+            }
+
+            Leaderboard.OrderByDescending(n => n.Value);
+
+            return Leaderboard;
         }
 
         public List<Comment> GetAllComments()
@@ -169,7 +181,7 @@ namespace Nirvana.Models
                 result = false;
             }
 
-            return result; 
+            return result;
         }
 
         public bool UpdateComment(int comment_id, string new_text)
@@ -222,6 +234,7 @@ namespace Nirvana.Models
             context.Likes.Add(create_me);
             context.SaveChanges();
 
+            int add_to_points = AddLikePts(act, UserWhoLiked);
             return create_me;
         }
 
@@ -254,6 +267,27 @@ namespace Nirvana.Models
             UserActPoints = query.Select(acts => acts.PointsEarned).ToList();
 
             return UserActPoints.Sum();
+        }
+
+        public int AddLikePts(RandomActsModel act, ApplicationUser who_liked)
+        {
+            var query = from a in context.Acts where a.RandomActId == act.RandomActId select a;
+            Rank GetRank = GetUserRank(who_liked);
+            int points_to_add = GetRank.BasePtsAllowance;
+            RandomActsModel selected_act = null;
+
+            try
+            {
+                selected_act = query.Single<RandomActsModel>();
+                selected_act.PointsEarned = selected_act.PointsEarned + points_to_add;
+                context.SaveChanges();
+            }
+            catch (ArgumentException)
+            {
+                return -1;
+            }
+
+            return selected_act.PointsEarned;
         }
     }
 
