@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace Nirvana.Models
 {
@@ -111,8 +112,7 @@ namespace Nirvana.Models
 
         public Dictionary<string, int> GetAllUsersRanks()
         {
-            var query = from a in context.Users select a;
-            List<ApplicationUser> AllUsers = query.Select(a => a).ToList();
+            List<ApplicationUser> AllUsers = context.Users.ToList();
             Dictionary<string, int> Leaderboard = new Dictionary<string, int>();
 
             foreach (ApplicationUser user in AllUsers)
@@ -288,6 +288,14 @@ namespace Nirvana.Models
             }
 
             return selected_act.PointsEarned;
+        }
+
+        public List<string> SearchActs(string description)
+        {
+            var query = from acts in context.Acts select acts.RandomActTitle;
+            List<string> found_acts = query.Where(acts => Regex.IsMatch(acts, description, RegexOptions.IgnoreCase)).Select(acts => acts).ToList();
+            found_acts.Sort();
+            return found_acts;
         }
     }
 
