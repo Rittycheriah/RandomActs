@@ -111,8 +111,7 @@ namespace Nirvana.Models
 
         public Dictionary<string, int> GetAllUsersRanks()
         {
-            var query = from a in context.Users select a;
-            List<ApplicationUser> AllUsers = query.Select(a => a).ToList();
+            List<ApplicationUser> AllUsers = context.Users.ToList();
             Dictionary<string, int> Leaderboard = new Dictionary<string, int>();
 
             foreach (ApplicationUser user in AllUsers)

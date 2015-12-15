@@ -16,10 +16,12 @@ namespace NirvanaTests.ModelTests
         private List<Likes> my_likes;
         private List<Comment> my_comments;
         private List<RandomActsModel> my_acts;
+        private List<ApplicationUser> my_users;
         private Mock<DbSet<Comment>> mock_comment;
         private Mock<DbSet<Likes>> mock_likes;
         private Mock<DbSet<Rank>> mock_individual_rank;
         private Mock<DbSet<RankDefinitions>> mock_definitions;
+        private Mock<DbSet<ApplicationUser>> mock_users;
         private List<Rank> my_rank = new List<Rank>();
         private ApplicationUser owner, user1, user2;
 
@@ -43,13 +45,15 @@ namespace NirvanaTests.ModelTests
             mock_likes = new Mock<DbSet<Likes>>();
             mock_individual_rank = new Mock<DbSet<Rank>>();
             mock_definitions = new Mock<DbSet<RankDefinitions>>();
+            mock_users = new Mock<DbSet<ApplicationUser>>();
             my_acts = new List<RandomActsModel>();
             my_rank = new List<Rank>();
             my_likes = new List<Likes>();
             my_comments = new List<Comment>();
-            owner = new ApplicationUser();
-            user1 = new ApplicationUser();
-            user2 = new ApplicationUser();
+            my_users = new List<ApplicationUser>();
+            owner = new ApplicationUser { Email = "a@a.com"};
+            user1 = new ApplicationUser { Email = "b@b.com"};
+            user2 = new ApplicationUser { Email = "c@c.com"};
         }
 
         [TestCleanup]
@@ -270,6 +274,19 @@ namespace NirvanaTests.ModelTests
             my_acts.Add(new RandomActsModel { RandomActTitle = "Gave someone a ride", Owner = user1, PointsEarned = 3 });
             my_acts.Add(new RandomActsModel { RandomActTitle = "Let someone take my place", Owner = user2, PointsEarned = 6 });
             my_acts.Add(new RandomActsModel { RandomActTitle = "c", Owner = owner, PointsEarned = 3});
+
+            var all_users = my_users.AsQueryable();
+
+            my_users.Add(owner);
+            my_users.Add(user1);
+            my_users.Add(user2);
+
+            mock_users.As<IQueryable<ApplicationUser>>().Setup(n => n.Provider).Returns(all_users.Provider);
+            mock_users.As<IQueryable<ApplicationUser>>().Setup(n => n.GetEnumerator()).Returns(all_users.GetEnumerator());
+            mock_users.As<IQueryable<ApplicationUser>>().Setup(n => n.ElementType).Returns(all_users.ElementType);
+            mock_users.As<IQueryable<ApplicationUser>>().Setup(n => n.Expression).Returns(all_users.Expression);
+
+            mock_context.Setup(g => g.Users).Returns(mock_users.Object);
             ConnectMocksToData();
 
             NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
@@ -279,9 +296,8 @@ namespace NirvanaTests.ModelTests
 
             // Assert
             int recValue = 0;
-            Assert.AreEqual(9, user_rank.TryGetValue(user1.Email, out recValue));
-            Assert.AreEqual(6, user_rank.TryGetValue(user2.Email, out recValue));
-            Assert.AreEqual(3, user_rank.TryGetValue(owner.Email, out recValue));
+            user_rank.TryGetValue(user1.Email, out recValue);
+            Assert.AreEqual(9, recValue);
         }
 
         [TestMethod]

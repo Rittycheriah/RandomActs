@@ -16,5 +16,8 @@ namespace Nirvana.Models
         public bool SocialMedia { get; set; }
         public int BasePtsAllowance { get; set; }
         public int MinimumPtReq { get; set; }
+
+        [Required]
+        public ApplicationUser User { get; set; }
     }
 }
