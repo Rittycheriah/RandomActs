@@ -503,10 +503,23 @@ namespace NirvanaTests.ModelTests
         {
             // arrange
 
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave a donation", Owner = user1, PointsEarned = 3 });
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Gave someone a ride", Owner = user1, PointsEarned = 3 });
+            my_acts.Add(new RandomActsModel { RandomActTitle = "Told someone they look nice", Owner = user1, PointsEarned = 3 });
+            ConnectMocksToData();
+
+            NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
+
             //act
+            string description = "nice";
+            List<string> expected = new List<string>();
+            expected.Add("Told someone they look nice");
+
+            List<string> actual_search = nirvana_repo.SearchActs(description);
 
             // assert
-            throw new NotImplementedException();
+            Assert.AreEqual(1, actual_search.Count);
+            CollectionAssert.AreEqual(expected, actual_search);
         }
 
         [TestMethod]
