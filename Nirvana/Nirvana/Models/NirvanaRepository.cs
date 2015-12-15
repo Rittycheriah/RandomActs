@@ -278,7 +278,7 @@ namespace Nirvana.Models
 
             try
             {
-                selected_act = query.Single<RandomActsModel>();
+                selected_act = query.SingleOrDefault<RandomActsModel>();
                 selected_act.PointsEarned = selected_act.PointsEarned + points_to_add;
                 context.SaveChanges();
             }

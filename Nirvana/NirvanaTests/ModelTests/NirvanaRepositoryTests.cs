@@ -411,7 +411,8 @@ namespace NirvanaTests.ModelTests
             mock_context.Setup(c => c.Likes).Returns(mock_likes.Object);
             ConnectMocksToData();
 
-            RandomActsModel to_like = new RandomActsModel { RandomActTitle = "Gave donation", Owner = user2, RandomActId = 1 };
+            RandomActsModel to_like = new RandomActsModel { RandomActTitle = "Gave donation", Owner = user2, RandomActId = 1, PointsEarned = 3 };
+            my_acts.Add(to_like);
             NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
 
             Likes created_like = nirvana_repo.CreateLike(to_like, user1);
@@ -444,7 +445,8 @@ namespace NirvanaTests.ModelTests
             mock_likes.Setup(e => e.Add(It.IsAny<Likes>())).Callback((Likes like) => my_likes.Add(like));
             mock_context.Setup(c => c.Likes).Returns(mock_likes.Object);
             ConnectMocksToData();
-            RandomActsModel to_like = new RandomActsModel { RandomActTitle = "Gave donation", Owner = user2 };
+            RandomActsModel to_like = new RandomActsModel { RandomActTitle = "Gave donation", Owner = user2, PointsEarned = 3 };
+            my_acts.Add(to_like);
             NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
 
             // act
@@ -542,12 +544,6 @@ namespace NirvanaTests.ModelTests
 
             // Assert
             Assert.AreEqual(6, totalpoints);
-        }
-
-        [TestMethod]
-        public void NirvanaRepoCanFollowOtherUsers()
-        {
-            throw new NotImplementedException();
         }
     }
 }
