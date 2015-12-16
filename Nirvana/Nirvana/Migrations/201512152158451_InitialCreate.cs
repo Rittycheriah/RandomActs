@@ -136,8 +136,11 @@ namespace Nirvana.Migrations
                         SocialMedia = c.Boolean(nullable: false),
                         BasePtsAllowance = c.Int(nullable: false),
                         MinimumPtReq = c.Int(nullable: false),
+                        User_Id = c.String(nullable: false, maxLength: 128),
                     })
-                .PrimaryKey(t => t.Rank_Id);
+                .PrimaryKey(t => t.Rank_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id, cascadeDelete: true)
+                .Index(t => t.User_Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -154,6 +157,7 @@ namespace Nirvana.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Ranks", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.RandomActsModels", "Owner_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Likes", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Likes", "Act_RandomActId", "dbo.RandomActsModels");
@@ -163,6 +167,7 @@ namespace Nirvana.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Ranks", new[] { "User_Id" });
             DropIndex("dbo.Likes", new[] { "User_Id" });
             DropIndex("dbo.Likes", new[] { "Act_RandomActId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
