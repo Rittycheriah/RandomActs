@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Nirvana.Models
 {
-    public class NirvanaRepository
+    public class NirvanaRepository : INirvanaRepository
     {
         private NirvanaContext context;
 
