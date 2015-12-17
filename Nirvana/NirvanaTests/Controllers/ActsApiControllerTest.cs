@@ -42,7 +42,7 @@ namespace NirvanaTests.Controllers
                 Returns(list_of_acts.Where(a => a.Owner == user1).ToList());
 
             fake_repo.Setup(r => r.CreateAct(It.IsAny<String>(), It.IsAny<String>(), It.IsAny<DateTime>(), It.IsAny<ApplicationUser>())).
-                Returns(new RandomActsModel { RandomActTitle = ActTitle, RandomActDescription = ActDescription, Date = ActDate, Owner = user1});
+                Returns(new RandomActsModel { RandomActTitle = ActTitle, RandomActDescription = ActDescription, Date = ActDate, Owner = user1, PointsEarned = 3});
         }
 
         [TestCleanup]
@@ -85,6 +85,14 @@ namespace NirvanaTests.Controllers
             var response = inst_of_controller.Post(ActTitle, ActDescription, ActDate, user1);
 
             Assert.AreEqual(ActTitle, response.RandomActTitle);
+        }
+
+        [TestMethod]
+        public void ActsApiEnsureCreatingActUsesPtsSystem()
+        {
+            var response = inst_of_controller.Post(ActTitle, ActDescription, ActDate, user1);
+
+            Assert.AreEqual(3, response.PointsEarned);
         }
     }
 }
