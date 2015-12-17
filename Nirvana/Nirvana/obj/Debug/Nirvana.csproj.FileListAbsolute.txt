@@ -72,8 +72,8 @@ C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\bin\Microsoft.Owin.Security.
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.Migrations.InitialCreate.resources
+C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.csproj.GenerateResource.Cache
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.dll
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.pdb
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.csprojResolveAssemblyReference.cache
-C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.Migrations.InitialCreate.resources
-C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.csproj.GenerateResource.Cache

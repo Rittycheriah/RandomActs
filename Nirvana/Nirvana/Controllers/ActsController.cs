@@ -6,6 +6,7 @@ using System.Net.Http;
 using Nirvana.Models;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.Http.Results;
 
 namespace Nirvana.Controllers
 {
@@ -47,8 +48,16 @@ namespace Nirvana.Controllers
         }
 
         // POST: api/Acts
-        public void Post([FromBody]string value)
+        public RandomActsModel Post([FromBody] string act_title, string act_description, DateTime act_date, ApplicationUser owner)
         {
+            RandomActsModel current = nirvana_repo.CreateAct(act_title, act_description, act_date, owner);
+
+            if (current == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return current;
         }
 
         // PUT: api/Acts/5
