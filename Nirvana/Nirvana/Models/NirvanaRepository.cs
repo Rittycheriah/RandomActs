@@ -31,9 +31,9 @@ namespace Nirvana.Models
             return UserActsQuery.ToList<RandomActsModel>();
         }
 
-        public RandomActsModel CreateAct(string ActTitle, string ActDescription, DateTime ActDate, ApplicationUser owner)
+        public RandomActsModel CreateAct(string ActTitle, string ActDescription, ApplicationUser owner)
         {
-            RandomActsModel _act = new RandomActsModel { RandomActTitle = ActTitle, RandomActDescription = ActDescription, Date = ActDate, Owner = owner, PointsEarned = 3 };
+            RandomActsModel _act = new RandomActsModel { RandomActTitle = ActTitle, RandomActDescription = ActDescription, Date = DateTime.Now, Owner = owner, PointsEarned = 3 };
             context.Acts.Add(_act);
             context.SaveChanges();
 
