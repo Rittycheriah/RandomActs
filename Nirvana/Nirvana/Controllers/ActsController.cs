@@ -11,23 +11,23 @@ namespace Nirvana.Controllers
 {
     public class ActsController : ApiController
     {
-        private NirvanaRepository nirvana_repo;
+        private INirvanaRepository nirvana_repo;
 
         public ActsController()
         {
             this.nirvana_repo = new NirvanaRepository();
         }
-
-        public ActsController(NirvanaRepository nirvanarepo)
+        
+        public ActsController(INirvanaRepository int_nirvanarepo)
         {
-            this.nirvana_repo = nirvanarepo;
+            this.nirvana_repo = int_nirvanarepo;
         }
 
         // just end points to retrieve data. 
         // GET: api/Acts
         public HttpResponseMessage GetAllActs()
         {
-            List<RandomActsModel> acts = nirvana_repo.GetAllActs();
+            IEnumerable<RandomActsModel> acts = nirvana_repo.GetAllActs();
             if (acts == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -54,6 +54,11 @@ namespace Nirvana.Controllers
         // DELETE: api/Acts/5
         public void Delete(int id)
         {
+        }
+
+        public object GetUserAct(ApplicationUser user1)
+        {
+            throw new NotImplementedException();
         }
     }
 }

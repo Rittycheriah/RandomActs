@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Collections.Generic;
 using Nirvana.Models;
+using Moq;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace NirvanaTests.Controllers
@@ -13,20 +15,61 @@ namespace NirvanaTests.Controllers
     [TestClass]
     public class ActsApiControllerTest
     {
+        private static ApplicationUser user1 = new ApplicationUser();
+        private static ApplicationUser user2 = new ApplicationUser();
+
+        public INirvanaRepository int_repo;
+        private ActsController inst_of_controller;
+
+        public List<RandomActsModel> list_of_acts = new List<RandomActsModel>
+        {
+            new RandomActsModel { RandomActId = 1, RandomActTitle = "puppy", Owner = user1 },
+            new RandomActsModel { RandomActId = 2, RandomActTitle = "kitten saved", Owner = user2 },
+            new RandomActsModel { RandomActId = 3, RandomActTitle = "raccoon has home", Owner = user1}
+        };
+
+        [TestInitialize]
+        public void Initalize()
+        {
+            var fake_repo = new Mock<INirvanaRepository>();
+            fake_repo.Setup(r => r.GetAllActs()).Returns(list_of_acts);
+            inst_of_controller = new ActsController(fake_repo.Object);
+
+            fake_repo.Setup(r => r.GetAllActs(user1)).
+                Returns(list_of_acts.Where(a => a.Owner == user1).ToList());
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            inst_of_controller = null;
+        }
+
         [TestMethod]
         public void ActsApiEnsureICanCallGetMethod()
         {
             // arrange
-            var act_controller = new ActsController();
-            act_controller.Request = new HttpRequestMessage();
-            act_controller.Configuration = new HttpConfiguration();
+            inst_of_controller.Request = new HttpRequestMessage();
+            inst_of_controller.Configuration = new HttpConfiguration();
 
             // act
-            var response = act_controller.GetAllActs();
+            var response = inst_of_controller.GetAllActs();
 
             // assert
-            RandomActsModel actual;
-            Assert.IsTrue(response.TryGetContentValue<RandomActsModel>(out actual));
+            IEnumerable<RandomActsModel> actual;
+            Assert.IsTrue(response.TryGetContentValue<IEnumerable<RandomActsModel>>(out actual));
+        }
+
+        [TestMethod]
+        public void ActsApiEnsureICanCallGetUsersActs()
+        {
+            inst_of_controller.Request = new HttpRequestMessage();
+            inst_of_controller.Configuration = new HttpConfiguration();
+
+            var response = inst_of_controller.GetUserAct(user1);
+
+            IEnumerable<RandomActsModel> actual;
+            Assert.IsTrue(response.TryGetContentValue<IEnumerable<RandomActsModel>>(out actual));
         }
     }
 }
