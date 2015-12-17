@@ -36,9 +36,14 @@ namespace Nirvana.Controllers
         }
 
         // GET: api/Acts/5
-        public string Get(int id)
+        public HttpResponseMessage GetUserAct(ApplicationUser user1)
         {
-            return "value";
+            IEnumerable<RandomActsModel> acts = nirvana_repo.GetAllActs(user1);
+            if (acts == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            return Request.CreateResponse(acts);
         }
 
         // POST: api/Acts
@@ -56,9 +61,5 @@ namespace Nirvana.Controllers
         {
         }
 
-        public object GetUserAct(ApplicationUser user1)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
