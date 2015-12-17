@@ -48,18 +48,16 @@ namespace Nirvana.Controllers
         }
 
         // POST: api/Acts
-        public OkResult Post([FromBody] string act_title, string act_description, DateTime act_date, ApplicationUser owner)
+        public RandomActsModel Post([FromBody] string act_title, string act_description, DateTime act_date, ApplicationUser owner)
         {
             RandomActsModel current = nirvana_repo.CreateAct(act_title, act_description, act_date, owner);
 
             if (current == null)
             {
-                //return Request.CreateResponse(HttpStatusCode.BadRequest);
+                throw new ArgumentNullException();
             }
 
-            HttpRequestMessage msg = new HttpRequestMessage();
-
-            return Ok();
+            return current;
         }
 
         // PUT: api/Acts/5

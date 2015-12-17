@@ -76,3 +76,4 @@ C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.Migrations
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.csproj.GenerateResource.Cache
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.dll
 C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.pdb
+C:\Users\student\Desktop\RandomActs\Nirvana\Nirvana\obj\Debug\Nirvana.csprojResolveAssemblyReference.cache

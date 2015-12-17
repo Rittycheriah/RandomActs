@@ -84,7 +84,7 @@ namespace NirvanaTests.Controllers
             //inst_of_controller.Configuration = new HttpConfiguration();
             var response = inst_of_controller.Post(ActTitle, ActDescription, ActDate, user1);
 
-            Assert.AreEqual(200, response.Request.Content);
+            Assert.AreEqual(ActTitle, response.RandomActTitle);
         }
     }
 }
