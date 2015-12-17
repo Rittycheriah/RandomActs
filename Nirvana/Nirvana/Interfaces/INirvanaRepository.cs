@@ -6,7 +6,7 @@ namespace Nirvana.Models
     public interface INirvanaRepository
     {
         int AddLikePts(RandomActsModel act, ApplicationUser who_liked);
-        RandomActsModel CreateAct(string ActTitle, string ActDescription, DateTime ActDate, ApplicationUser owner);
+        RandomActsModel CreateAct(string ActTitle, string ActDescription, ApplicationUser owner);
         bool CreateComment(Comment comm_2_add, int ActId);
         Likes CreateLike(RandomActsModel act, ApplicationUser UserWhoLiked);
         bool DeleteComment(int ActId, int comment_id);

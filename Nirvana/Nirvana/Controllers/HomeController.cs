@@ -26,5 +26,10 @@ namespace Nirvana.Controllers
 
             return View();
         }
+
+        public ActionResult add_Act()
+        {
+            return View();
+        }
     }
 }

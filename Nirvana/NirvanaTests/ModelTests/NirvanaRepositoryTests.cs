@@ -117,10 +117,9 @@ namespace NirvanaTests.ModelTests
             NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
             string title = "Gave a friend a ride";
             string description = "My friend was walking home from school, but I decided since it was cold it was better for them to ride with me";
-            DateTime date = new DateTime(2015, 01, 01);
 
             //Act
-            RandomActsModel added_act = nirvana_repo.CreateAct(title, description, date, owner);
+            RandomActsModel added_act = nirvana_repo.CreateAct(title, description, owner);
 
             //Assert
             Assert.IsNotNull(added_act);
@@ -136,8 +135,7 @@ namespace NirvanaTests.ModelTests
             NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
             string title = "Gave a friend a ride";
             string description = "My friend was walking home from school, but I decided since it was cold it was better for them to ride with me";
-            DateTime date = new DateTime(2015, 01, 01);
-            RandomActsModel added_act = nirvana_repo.CreateAct(title, description, date, owner);
+            RandomActsModel added_act = nirvana_repo.CreateAct(title, description, owner);
             my_acts.Add(added_act);
 
             // act
@@ -155,8 +153,8 @@ namespace NirvanaTests.ModelTests
             NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
             string title = "Gave a friend a ride";
             string description = "My friend was walking home from school, but I decided since it was cold it was better for them to ride with me";
-            DateTime date = new DateTime(2015, 01, 01);
-            RandomActsModel added_act = nirvana_repo.CreateAct(title, description, date, owner);
+
+            RandomActsModel added_act = nirvana_repo.CreateAct(title, description, owner);
             my_acts.Add(added_act);
 
             // act
@@ -566,7 +564,7 @@ namespace NirvanaTests.ModelTests
             ConnectMocksToData();
             RandomActsModel to_like = new RandomActsModel { RandomActTitle = "Gave donation", RandomActDescription = "gave a donation to St. Jude's", Owner = user2, Date = DateTime.Now};
             NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
-            nirvana_repo.CreateAct(to_like.RandomActTitle, to_like.RandomActDescription, to_like.Date, to_like.Owner);
+            nirvana_repo.CreateAct(to_like.RandomActTitle, to_like.RandomActDescription, to_like.Owner);
 
             //Act
             int totalpoints = nirvana_repo.AddLikePts(to_like, user2);

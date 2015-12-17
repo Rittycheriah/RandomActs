@@ -48,9 +48,9 @@ namespace Nirvana.Controllers
         }
 
         // POST: api/Acts
-        public RandomActsModel Post([FromBody] string act_title, string act_description, DateTime act_date, ApplicationUser owner)
+        public RandomActsModel Post([FromBody] string act_title, string act_description, ApplicationUser owner)
         {
-            RandomActsModel current = nirvana_repo.CreateAct(act_title, act_description, act_date, owner);
+            RandomActsModel current = nirvana_repo.CreateAct(act_title, act_description, owner);
 
             if (current == null)
             {
