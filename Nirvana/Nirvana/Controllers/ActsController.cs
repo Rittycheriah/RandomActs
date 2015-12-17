@@ -60,15 +60,5 @@ namespace Nirvana.Controllers
             return current;
         }
 
-        // PUT: api/Acts/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Acts/5
-        public void Delete(int id)
-        {
-        }
-
     }
 }
