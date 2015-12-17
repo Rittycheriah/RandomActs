@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Add Act";
+}
+<html>
+    <head>
+        <title>Add An Act</title>
+        @Styles.Render("~/Content/css");
+        @Scripts.Render("~/bundles/modernizr");
+    </head>
+    <body>
+        <form method="post">
+            <fieldset>
+                <legend> Add An Act </legend>
+                <div>
+                    <label for="actTitle">Act Title:</label>
+                    <input type="text" name="ActTitle"/>
+                </div>
+                <div>
+                    <label for="actTitle">Act Description:</label>
+                    <input type="text" name="ActTitle" />
+                </div>
+                <div>
+                    <input type="submit" value="Submit" class="Submit" />
+                </div>
+            </fieldset>
+        </form>
+    </body>
+</html>
