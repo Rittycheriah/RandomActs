@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Text.RegularExpressions;
+using System.Data.Entity;
 
 namespace Nirvana.Models
 {
     public class NirvanaRepository : INirvanaRepository
     {
         private NirvanaContext context;
+
+        public IDbSet<ApplicationUser> Users { get { return context.Users; } }
 
         public NirvanaRepository()
         {
