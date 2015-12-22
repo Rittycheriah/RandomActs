@@ -81,7 +81,7 @@ namespace NirvanaTests.Controllers
         public void ActsApiEnsureICanPostNewAct()
         {
             //inst_of_controller.Configuration = new HttpConfiguration();
-            var response = inst_of_controller.Post(ActTitle, ActDescription, user1);
+            var response = inst_of_controller.Post();
 
             Assert.AreEqual(ActTitle, response.RandomActTitle);
         }
@@ -89,7 +89,8 @@ namespace NirvanaTests.Controllers
         [TestMethod]
         public void ActsApiEnsureCreatingActUsesPtsSystem()
         {
-            var response = inst_of_controller.Post(ActTitle, ActDescription, user1);
+
+            var response = inst_of_controller.Post();
 
             Assert.AreEqual(3, response.PointsEarned);
         }

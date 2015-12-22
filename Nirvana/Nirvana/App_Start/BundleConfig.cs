@@ -23,6 +23,15 @@ namespace Nirvana
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                      "~/Scripts/angular.js", 
+                      "~/Scripts/angular-route.js", 
+                      "~/Scripts/angular-ui/ui-bootstrap.js", 
+                      "~/Scripts/custom/app.js", 
+                      "~/Scripts/custom/addCtrl.js", 
+                      "~/Scripts/custom/userProfileCtrl.js"
+                    ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));

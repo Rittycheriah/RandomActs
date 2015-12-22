@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin;
+using Newtonsoft.Json.Serialization;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(Nirvana.Startup))]

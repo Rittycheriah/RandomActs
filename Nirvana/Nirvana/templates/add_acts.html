@@ -1,0 +1,16 @@
+﻿<form method="post" novalidate >
+    <fieldset>
+        <legend> Add An Act </legend>
+        <div>
+            <label for="actTitle"> Act Title</label>
+            <input type="text" name="ActTitle" ng-model="new_act.act_title"/>
+        </div>
+        <div>
+            <label for="actDescription"> Act Description</label>
+            <input type="text" name="ActDescription" ng-model="new_act.act_description"/>
+        </div>
+        <div>
+            <button ng-click="postActs()"> Gain Karma </button>
+        </div>
+    </fieldset>
+</form>

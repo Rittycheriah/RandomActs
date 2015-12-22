@@ -5,8 +5,11 @@ using System.Net;
 using System.Net.Http;
 using Nirvana.Models;
 using System.Web.Http;
-using System.Web.Mvc;
 using System.Web.Http.Results;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+
 
 namespace Nirvana.Controllers
 {
@@ -48,8 +51,17 @@ namespace Nirvana.Controllers
         }
 
         // POST: api/Acts
-        public RandomActsModel Post([FromBody] string act_title, string act_description, ApplicationUser owner)
+        //[Route("api/Acts")]
+        [HttpPost]
+        public RandomActsModel Post(RandomActsModel new_act)
         {
+            string act_title = new_act.RandomActTitle;
+            string act_description = new_act.RandomActDescription;
+
+            string user_id = User.Identity.GetUserId();
+
+            ApplicationUser owner = nirvana_repo.Users.FirstOrDefault(u => u.Id == user_id);
+
             RandomActsModel current = nirvana_repo.CreateAct(act_title, act_description, owner);
 
             if (current == null)
