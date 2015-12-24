@@ -8,6 +8,7 @@ namespace Nirvana.Models
     {
         IDbSet<ApplicationUser> Users { get; }
         int AddLikePts(RandomActsModel act, ApplicationUser who_liked);
+        RandomActsModel GetActById(int act_id);
         RandomActsModel CreateAct(string ActTitle, string ActDescription, ApplicationUser owner);
         bool CreateComment(Comment comm_2_add, int ActId);
         Likes CreateLike(RandomActsModel act, ApplicationUser UserWhoLiked);

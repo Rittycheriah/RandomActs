@@ -52,7 +52,7 @@ namespace Nirvana.Controllers
         // POST: api/Acts
         [Route("api/Acts")]
         [HttpPost]
-        public RandomActsModel Post(RandomActsModel new_act)
+        public RandomActsModel Post([FromBody]RandomActsModel new_act)
         {
             string act_title = new_act.RandomActTitle;
             string act_description = new_act.RandomActDescription;
@@ -69,6 +69,29 @@ namespace Nirvana.Controllers
             }
 
             return current;
+        }
+
+        [HttpPost]
+        public bool PostComment(int id, [FromBody] string the_comment)
+        {
+            bool result = false;
+
+            var userID = User.Identity.GetUserId();
+            ApplicationUser owner = nirvana_repo.Users.FirstOrDefault(u => u.Id == userID);
+
+            Comment new_comment = new Comment { UserComment = the_comment, ActId = id, Date = DateTime.Now, User = owner };
+
+            try
+            {
+                nirvana_repo.CreateComment(new_comment, id);
+                result = true;
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+
+            return result;
         }
 
     }

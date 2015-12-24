@@ -7,12 +7,12 @@
                 method: 'POST',
                 url: '/api/Acts',
                 data: $scope.new_act
-            }).then({
+            }).then(
                 function(response) {
-                    debugger;
+                   $location.path("/userProfile")
                 }, function(response) {
-                    debugger;
+                    console.log("post ACT failed");
                 }
-            })
+            )
         }
     })

@@ -25,13 +25,19 @@ namespace Nirvana.Models
 
         public List<RandomActsModel> GetAllActs()
         {
-            return context.Acts.ToList();
+            return context.Acts.OrderByDescending(a => a.Date).ToList();
         }
 
         public List<RandomActsModel> GetAllActs(ApplicationUser _user)
         {
             var UserActsQuery = from acts in context.Acts where acts.Owner == _user select acts;
             return UserActsQuery.ToList<RandomActsModel>();
+        }
+
+        public RandomActsModel GetActById(int act_id)
+        {
+            var ActIdQuery = from act in context.Acts where act.RandomActId == act_id select act;
+            return ActIdQuery.Single();
         }
 
         public RandomActsModel CreateAct(string ActTitle, string ActDescription, ApplicationUser owner)
