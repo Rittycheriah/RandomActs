@@ -3,10 +3,6 @@
 var nirvana_mod = angular.module('my_nirvana', ['ngRoute', 'ui.bootstrap']);
 
 nirvana_mod.config(function ($routeProvider, $locationProvider) {
-    $locationProvider.html5Mode({
-        enabled: true,
-        requiredBase: false
-    });
     $routeProvider.
       when('/', {
           templateUrl: '/templates/splash.html',

@@ -243,6 +243,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom\addCtrl.js" />
     <Content Include="Scripts\custom\app.js" />
+    <Content Include="Scripts\custom\splashCtrl.js" />
     <Content Include="Scripts\custom\userProfileCtrl.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

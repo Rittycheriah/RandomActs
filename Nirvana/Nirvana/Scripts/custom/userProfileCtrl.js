@@ -1,21 +1,15 @@
 ﻿angular.module('my_nirvana')
     .controller('userProfileCtrl', function ($scope, $http, $location) {
 
-        var get_all_acts = function () {
-            $http({
-                method: 'GET',
-                url: '/api/Acts'
-            }).then({
-                function(response) {
-                    $scope.all = data;
-                    debugger
-                    console.log('SUCCESS!');
-                }, function(response) {
-                    debugger
-                    console.log('Failure - @ getallacts')
-                }
-            })
-        };
-
-        get_all_acts();
+        $scope.sample = "at user profile";
+        debugger
+        $http.get('api/GetAllActs').then(
+            function(response) {
+                debugger
+                $scope.things = response.data;
+                console.log('SUCCESS!');
+            }, function(response) {
+                return console.log('Failure - @ getallacts')
+            }
+        );
     });

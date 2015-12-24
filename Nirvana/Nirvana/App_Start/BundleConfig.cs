@@ -29,7 +29,8 @@ namespace Nirvana
                       "~/Scripts/angular-ui/ui-bootstrap.js", 
                       "~/Scripts/custom/app.js", 
                       "~/Scripts/custom/addCtrl.js", 
-                      "~/Scripts/custom/userProfileCtrl.js"
+                      "~/Scripts/custom/userProfileCtrl.js",
+                      "~/Scripts/custom/splashCtrl.js"
                     ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

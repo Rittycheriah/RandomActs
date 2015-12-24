@@ -20,7 +20,7 @@ namespace Nirvana
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}/{collection}",
-                defaults: new { id = RouteParameter.Optional, collection = RouteParameter.Optional }
+                defaults: new { id = RouteParameter.Optional }
             );
 
 

@@ -29,17 +29,16 @@ namespace Nirvana.Controllers
 
         // just end points to retrieve data. 
         // GET: api/Acts
-        public HttpResponseMessage GetAllActs()
+        [Route("api/GetAllActs")]
+        [HttpGet]
+        public IEnumerable<RandomActsModel> GetAllActs()
         {
-            IEnumerable<RandomActsModel> acts = nirvana_repo.GetAllActs();
-            if (acts == null)
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-            return Request.CreateResponse(acts);
+            return nirvana_repo.GetAllActs();
         }
 
         // GET: api/Acts/5
+        [Route("api/GetActs")]
+        [HttpGet]
         public HttpResponseMessage GetUserAct(ApplicationUser user1)
         {
             IEnumerable<RandomActsModel> acts = nirvana_repo.GetAllActs(user1);

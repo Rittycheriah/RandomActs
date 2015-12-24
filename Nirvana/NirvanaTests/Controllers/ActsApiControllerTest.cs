@@ -53,6 +53,7 @@ namespace NirvanaTests.Controllers
         [TestMethod]
         public void ActsApiEnsureICanCallGetMethod()
         {
+
             // arrange
             inst_of_controller.Request = new HttpRequestMessage();
             inst_of_controller.Configuration = new HttpConfiguration();
@@ -61,8 +62,7 @@ namespace NirvanaTests.Controllers
             var response = inst_of_controller.GetAllActs();
 
             // assert
-            IEnumerable<RandomActsModel> actual;
-            Assert.IsTrue(response.TryGetContentValue<IEnumerable<RandomActsModel>>(out actual));
+            Assert.AreEqual(list_of_acts[0].ToString(), response.ToList().First().ToString());
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace NirvanaTests.Controllers
         public void ActsApiEnsureICanPostNewAct()
         {
             //inst_of_controller.Configuration = new HttpConfiguration();
-            var response = inst_of_controller.Post();
+            var response = inst_of_controller.Post(list_of_acts[0]);
 
             Assert.AreEqual(ActTitle, response.RandomActTitle);
         }
@@ -90,7 +90,7 @@ namespace NirvanaTests.Controllers
         public void ActsApiEnsureCreatingActUsesPtsSystem()
         {
 
-            var response = inst_of_controller.Post();
+            var response = inst_of_controller.Post(list_of_acts[0]);
 
             Assert.AreEqual(3, response.PointsEarned);
         }
