@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Nirvana.Models.RandomActsModel
+@{
     ViewBag.Title = "Add Act";
 }
 <html>
@@ -8,16 +9,16 @@
         @Scripts.Render("~/bundles/modernizr");
     </head>
     <body>
-        <form method="post">
+        <form method="post" action="/Action/Create">
             <fieldset>
                 <legend> Add An Act </legend>
                 <div>
-                    <label for="actTitle">Act Title:</label>
+                    <label for="actTitle"> @Html.LabelFor(Model => Model.RandomActTitle)</label>
                     <input type="text" name="ActTitle"/>
                 </div>
                 <div>
-                    <label for="actTitle">Act Description:</label>
-                    <input type="text" name="ActTitle" />
+                    <label for="actDescription"> @Html.LabelFor(Model => Model.RandomActDescription)</label>
+                    <input type="text" name="ActDescription" />
                 </div>
                 <div>
                     <input type="submit" value="Submit" class="Submit" />

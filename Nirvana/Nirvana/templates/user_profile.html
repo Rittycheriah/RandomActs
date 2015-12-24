@@ -1,0 +1,29 @@
+﻿<div class="container-fluid" ng-controller="userProfileCtrl">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="row">
+                <p> user profile page.</p>
+                <div ng-repeat="act in things"> 
+                    <div class="panel panel-success">
+                        <div class="panel-heading">{{act.randomActTitle}}</div>
+                        <div class="panel panel-body">
+                             {{act.randomActDescription}}
+                        </div>
+                        <div class="panel panel-footer">
+                            <button ng-click="isCommenting = true"> Add Comment </button>
+                            <button> Show Comments </button>
+                            <button> Add Like </button>
+
+                            <div ng-show="isCommenting">
+                                <label> Comment: </label>
+                                <input type="text" ng-model="comment" />
+                                <button ng-click="postComment(act, comment)"> Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>

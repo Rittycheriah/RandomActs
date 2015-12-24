@@ -60,3 +60,8 @@ C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\bin\Debug\Microsoft.Owi
 C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\obj\Debug\NirvanaTests.csprojResolveAssemblyReference.cache
 C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\obj\Debug\NirvanaTests.dll
 C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\obj\Debug\NirvanaTests.pdb
+C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\bin\Debug\System.Web.Http.Cors.dll
+C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\bin\Debug\System.Web.Http.WebHost.dll
+C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\bin\Debug\System.Web.Cors.dll
+C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\bin\Debug\System.Web.Http.Cors.xml
+C:\Users\student\Desktop\RandomActs\Nirvana\NirvanaTests\bin\Debug\System.Web.Http.WebHost.xml

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Nirvana.Models.RandomActsModel>
+
+<html>
+<head>
+    <title>Nirvana - User Home</title>
+    @Styles.Render("~/Content/css");
+    @Scripts.Render("~/bundles/modernizr");
+    @Scripts.Render("~/bundles/angular");
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div> @item.RandomActTitle </div>
+                        <div> @item.RandomActDescription</div>
+                        <div> <input type="button" value="Add Comment"/></div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</body>
+</html>
