@@ -50,7 +50,7 @@ namespace Nirvana.Controllers
         }
 
         // POST: api/Acts
-        //[Route("api/Acts")]
+        [Route("api/Acts")]
         [HttpPost]
         public RandomActsModel Post(RandomActsModel new_act)
         {

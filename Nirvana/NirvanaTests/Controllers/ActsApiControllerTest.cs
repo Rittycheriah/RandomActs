@@ -81,7 +81,8 @@ namespace NirvanaTests.Controllers
         public void ActsApiEnsureICanPostNewAct()
         {
             //inst_of_controller.Configuration = new HttpConfiguration();
-            var response = inst_of_controller.Post(list_of_acts[0]);
+            RandomActsModel noob = new RandomActsModel { RandomActTitle = "winning", RandomActDescription = "always", Owner = user1 };
+            var response = inst_of_controller.Post(noob);
 
             Assert.AreEqual(ActTitle, response.RandomActTitle);
         }
