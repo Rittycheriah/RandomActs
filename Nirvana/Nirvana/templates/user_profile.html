@@ -12,13 +12,23 @@
                         </div>
                         <div class="panel panel-footer">
                             <button ng-click="isCommenting = true"> Add Comment </button>
-                            <button> Show Comments </button>
+                            <button ng-click="showActComments(act.randomActId)"> Show Comments </button>
                             <button> Add Like </button>
 
                             <div ng-show="isCommenting">
                                 <label> Comment: </label>
                                 <input type="text" ng-model="comment" name="comment"/>
                                 <button ng-click="postComment(act.randomActId, comment)"> Submit</button>
+                            </div>
+                            <div ng-show="showComments" class="panel panel-body">
+                                <div ng-repeat="comment in comments">
+                                    <div>
+                                        {{comment.userComment}}
+                                    </div>
+                                    <div>
+                                        {{comment.User}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

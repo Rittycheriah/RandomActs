@@ -95,5 +95,12 @@ namespace Nirvana.Controllers
             return result;
         }
 
+        [Route("api/Acts/GetComms")]
+        [HttpGet]
+        public IEnumerable<Comment> GetCommentsForAct([FromBody] RandomActsModel act)
+        {
+            return nirvana_repo.GetAllComments(act.RandomActId);
+        }
+
     }
 }

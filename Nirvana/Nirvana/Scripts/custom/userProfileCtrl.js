@@ -10,7 +10,6 @@
         );
 
         $scope.postComment = function (act, comment) {
-            debugger
             var newComment = {
                 userComment: comment, actId: act.RandomActId
             }
@@ -23,5 +22,24 @@
               function (response) { console.log("SUCCESS - comments using FROMURI"); },
               function (response) { console.log("ERRORRRRRR - comments using FROM URI"); }
             )
+        };
+
+        $scope.showActComments = function (act_id) {
+            debugger
+            var act_to_search = {
+                randomActId: act_id
+            };
+
+            var toSend = JSON.stringify(act_to_search);
+
+            $scope.showComments = true;
+            $http.get('api/Acts/GetComms', toSend).then(
+                function (response) {
+                    $scope.comments = response.data;
+                    console.log('SUCCESS! - comments GET');
+                }, function (response) {
+                    return console.log('Failure - @ getallcomments')
+                }
+             );
         };
     });
