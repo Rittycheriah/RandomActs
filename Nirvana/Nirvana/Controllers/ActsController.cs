@@ -9,7 +9,7 @@ using System.Web.Http.Results;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-
+using Newtonsoft.Json.Linq;
 
 namespace Nirvana.Controllers
 {
@@ -73,18 +73,18 @@ namespace Nirvana.Controllers
 
         [Route("api/Acts/{id}")]
         [HttpPost]
-        public bool PostComment(int id, [FromBody] string AddedComment)
+        public bool PostComment([FromBody]Comment NewComment)
         {
             bool result = false;
 
             var userID = User.Identity.GetUserId();
             ApplicationUser owner = nirvana_repo.Users.FirstOrDefault(u => u.Id == userID);
 
-            Comment new_comment = new Comment { UserComment = AddedComment, ActId = id, Date = DateTime.Now, User = owner };
+            Comment new_comment = new Comment { UserComment = NewComment.UserComment, ActId = NewComment.ActId, Date = DateTime.Now, User = owner };
 
             try
             {
-                nirvana_repo.CreateComment(new_comment, id);
+                nirvana_repo.CreateComment(new_comment, new_comment.ActId);
                 result = true;
             }
             catch
