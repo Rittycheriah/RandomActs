@@ -10,10 +10,11 @@
         );
 
         $scope.postComment = function (act, comment) {
+            debugger
             var url = "api/Acts/"+act.randomActId;
             $http.post(url, comment).then(
-              function (response) { console.log("SUCCESS"); },
-              function (response) { console.log("ERRORRRRRR"); }
+              function (response) { console.log("SUCCESS - comments using FROMURI"); },
+              function (response) { console.log("ERRORRRRRR - comments using FROM URI"); }
             )
         };
     });

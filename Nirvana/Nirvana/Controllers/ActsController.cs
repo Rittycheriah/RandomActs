@@ -71,15 +71,16 @@ namespace Nirvana.Controllers
             return current;
         }
 
+        [Route("api/Acts/{id}")]
         [HttpPost]
-        public bool PostComment(int id, [FromBody] string the_comment)
+        public bool PostComment(int id, [FromBody] string AddedComment)
         {
             bool result = false;
 
             var userID = User.Identity.GetUserId();
             ApplicationUser owner = nirvana_repo.Users.FirstOrDefault(u => u.Id == userID);
 
-            Comment new_comment = new Comment { UserComment = the_comment, ActId = id, Date = DateTime.Now, User = owner };
+            Comment new_comment = new Comment { UserComment = AddedComment, ActId = id, Date = DateTime.Now, User = owner };
 
             try
             {
