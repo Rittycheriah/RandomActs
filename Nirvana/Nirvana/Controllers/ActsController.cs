@@ -73,9 +73,8 @@ namespace Nirvana.Controllers
 
         [Route("api/Acts/{id}")]
         [HttpPost]
-        public bool PostComment([FromBody]Comment NewComment)
+        public Comment PostComment([FromBody]Comment NewComment)
         {
-            bool result = false;
 
             var userID = User.Identity.GetUserId();
             ApplicationUser owner = nirvana_repo.Users.FirstOrDefault(u => u.Id == userID);
@@ -84,18 +83,17 @@ namespace Nirvana.Controllers
 
             try
             {
-                nirvana_repo.CreateComment(new_comment, new_comment.ActId);
-                result = true;
+                 nirvana_repo.CreateComment(new_comment, new_comment.ActId);
             }
             catch
             {
                 throw new ArgumentException();
             }
 
-            return result;
+            return new_comment;
         }
 
-        [Route("api/Acts/GetComms")]
+        [Route("api/Acts/GetComms/{id}")]
         [HttpGet]
         public IEnumerable<Comment> GetCommentsForAct([FromBody] RandomActsModel act)
         {

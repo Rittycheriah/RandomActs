@@ -19,7 +19,7 @@
             var url = "api/Acts/" + act;
            
             $http.post(url, toSend).then(
-              function (response) { console.log("SUCCESS - comments using FROMURI"); },
+              function (response) { console.log("SUCCESS - comments using FROMURI"), isCommenting = false },
               function (response) { console.log("ERRORRRRRR - comments using FROM URI"); }
             )
         };
@@ -33,7 +33,11 @@
             var toSend = JSON.stringify(act_to_search);
 
             $scope.showComments = true;
-            $http.get('api/Acts/GetComms', toSend).then(
+            $http({
+                url: "api/Acts/GetComms/{id}", 
+                method: "GET", 
+                params: {randomActId: act_id}
+                }).then(
                 function (response) {
                     $scope.comments = response.data;
                     console.log('SUCCESS! - comments GET');
