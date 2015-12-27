@@ -15,7 +15,7 @@
                             <button ng-click="showActComments(act.randomActId)"> Show Comments </button>
                             <button> Add Like </button>
 
-                            <div ng-show="isCommenting">
+                            <div ng-show="isCommenting" class="panel panel-body">
                                 <label> Comment: </label>
                                 <input type="text" ng-model="comment" name="comment"/>
                                 <button ng-click="postComment(act.randomActId, comment)"> Submit</button>
