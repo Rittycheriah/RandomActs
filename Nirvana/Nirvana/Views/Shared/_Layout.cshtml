@@ -12,10 +12,17 @@
 
 </head>
 <body>
-
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <h1>Nirvana.io</h1>
+            <h4>Hatred does not cease by hatred, but only by love; this is the eternal rule.</h4>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
     @if (Request.IsAuthenticated)
     {
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -29,6 +36,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/#/userProfile"> Home </a></li>
                         <li><a href="/#/addAct">Add an Act</a></li>
+                        <li><a href="/#/leaderboard">Leaderboard</a></li>
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
@@ -37,7 +45,7 @@
     }
     else
     {
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

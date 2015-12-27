@@ -16,6 +16,10 @@ nirvana_mod.config(function ($routeProvider, $locationProvider) {
           templateUrl: '/templates/add_acts.html',
           controller: 'addCtrl'
       }).
+      when('/leaderboard', {
+          templateUrl: '/templates/leaderboard.html', 
+          controller: 'leaderboardCtrl'
+      }).
       otherwise({
           redirectTo: '/'
       });

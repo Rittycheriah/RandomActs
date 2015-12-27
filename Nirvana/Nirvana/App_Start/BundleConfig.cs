@@ -30,7 +30,8 @@ namespace Nirvana
                       "~/Scripts/custom/app.js", 
                       "~/Scripts/custom/addCtrl.js", 
                       "~/Scripts/custom/userProfileCtrl.js",
-                      "~/Scripts/custom/splashCtrl.js"
+                      "~/Scripts/custom/splashCtrl.js", 
+                      "~/Scripts/custom/leaderboardCtrl.js"
                     ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
