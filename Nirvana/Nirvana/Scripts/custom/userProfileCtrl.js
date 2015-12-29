@@ -1,6 +1,5 @@
 ﻿angular.module('my_nirvana')
     .controller('userProfileCtrl', function ($scope, $http, $location) {
-        debugger
         $http.get("api/Acts/GetCurrentUser").then(
             function (response) {
                 console.log("got the user!");
@@ -13,11 +12,11 @@
 
         $http.get("api/Acts/CurrentUserRank").then(
             function (response) {
-                                console.log("got the user!");
+                                console.log("got the user rank!");
                                 $scope.theUser = response;
                             },
             function (response) {
-                return console.log("failure @ user get");
+                return console.log("failure @ user get rank");
             }
             )
 
@@ -88,8 +87,6 @@
         }
 
         $scope.editComment = function (comment_id, comment){
-            debugger
-
             var editComment = {
                 userComment: comment
             }

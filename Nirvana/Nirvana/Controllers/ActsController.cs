@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Newtonsoft.Json.Linq;
 using System.Security.Principal;
+using System.Threading;
 
 namespace Nirvana.Controllers
 {
@@ -125,13 +126,15 @@ namespace Nirvana.Controllers
         [HttpPut]
         public void Edit(int id, [FromBody]Comment comment)
         {
+            Thread.Sleep(2000);
+
             string the_change = comment.UserComment;
 
             try
             {
                 nirvana_repo.UpdateComment(id, the_change);
             }
-            catch
+            catch(Exception e)
             {
                 throw new ArgumentException();
             }

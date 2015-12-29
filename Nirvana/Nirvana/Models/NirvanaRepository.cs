@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Text.RegularExpressions;
 using System.Data.Entity;
+using System.Threading;
 
 namespace Nirvana.Models
 {
@@ -195,13 +196,11 @@ namespace Nirvana.Models
 
         public bool UpdateComment(int comment_id, string new_text)
         {
-            var query = from a in context.Comments where a.CommentId == comment_id select a;
-            Comment target_comment = null;
             bool result = true;
 
             try
             {
-                target_comment = query.SingleOrDefault<Comment>();
+                var target_comment = context.Comments.Single(c => c.CommentId == comment_id);
                 target_comment.UserComment = new_text;
                 context.SaveChanges();
                 result = true;
