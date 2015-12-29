@@ -73,31 +73,29 @@ namespace Nirvana.Controllers
 
         [Route("api/Acts/{id}")]
         [HttpPost]
-        public Comment PostComment([FromBody]Comment NewComment)
+        public void Post(int id, [FromBody]Comment NewComment)
         {
 
             var userID = User.Identity.GetUserId();
             ApplicationUser owner = nirvana_repo.Users.FirstOrDefault(u => u.Id == userID);
 
-            Comment new_comment = new Comment { UserComment = NewComment.UserComment, ActId = NewComment.ActId, Date = DateTime.Now, User = owner };
+            Comment new_comment = new Comment { UserComment = NewComment.UserComment, ActId = id, Date = DateTime.Now, User = owner };
 
             try
             {
-                 nirvana_repo.CreateComment(new_comment, new_comment.ActId);
+                 nirvana_repo.CreateComment(new_comment, id);
             }
             catch
             {
                 throw new ArgumentException();
             }
-
-            return new_comment;
         }
 
         [Route("api/Acts/GetComms/{id}")]
         [HttpGet]
-        public IEnumerable<Comment> GetCommentsForAct([FromBody] RandomActsModel act)
+        public IEnumerable<Comment> GetCommentsForAct(int id)
         {
-            return nirvana_repo.GetAllComments(act.RandomActId);
+            return nirvana_repo.GetAllComments(id);
         }
 
     }
