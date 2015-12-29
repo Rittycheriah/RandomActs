@@ -24,8 +24,10 @@
             )
         };
 
+        $scope.current_comment = false;
+
         $scope.showActComments = function (act_id) {
-            debugger
+            $scope.current_comment = true;
             $scope.showComments = true;
             $http({
                 url: "api/Acts/GetComms/" + act_id, 
@@ -34,9 +36,14 @@
                 }).then(
                 function (response) {
                     $scope.comments = response.data;
-                    console.log('SUCCESS! - comments GET');
+                    var actID = $scope.comments[0].actId;
+                    var found_act = _.find($scope.things, function (act) {
+                        return act.randomActId === actID;
+                    });
+                    debugger
+                    found_act.comments = $scope.comments;
                 }, function (response) {
-                    return console.log('Failure - @ getallcomments')
+                    console.log("ERRORR - GET comments");
                 }
              );
         };
