@@ -21,7 +21,7 @@ namespace Nirvana.Controllers
         {
             this.nirvana_repo = new NirvanaRepository();
         }
-        
+
         public ActsController(INirvanaRepository int_nirvanarepo)
         {
             this.nirvana_repo = int_nirvanarepo;
@@ -83,7 +83,7 @@ namespace Nirvana.Controllers
 
             try
             {
-                 nirvana_repo.CreateComment(new_comment, id);
+                nirvana_repo.CreateComment(new_comment, id);
             }
             catch
             {
@@ -96,6 +96,22 @@ namespace Nirvana.Controllers
         public IEnumerable<Comment> GetCommentsForAct(int id)
         {
             return nirvana_repo.GetAllComments(id);
+        }
+
+        [Route("api/Acts/DeleteComm/{id}")]
+        [HttpDelete]
+        public void Delete(int id, [FromBody]Comment Comm2Delete)
+        {
+            int comm_id = Comm2Delete.CommentId;
+
+            try
+            {
+                nirvana_repo.DeleteComment(id, comm_id);
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
         }
 
     }

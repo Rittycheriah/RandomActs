@@ -8,7 +8,8 @@
                     <div class="panel panel-success">
                         <div class="panel-heading">{{act.randomActTitle}}</div>
                         <div class="panel panel-body">
-                             {{act.randomActDescription}}
+                             {{act.randomActDescription}}<br />
+                             Total Likes: {{act.likes.length}}
                         </div>
                         <div class="panel panel-footer">
                             <button ng-click="isCommenting = true"> Add Comment </button>
@@ -22,12 +23,21 @@
                             </div>
                             <div ng-show="current_comment" class="panel panel-body">
                                 <div ng-repeat="comment in act.comments">
-                                    <div>
-                                       {{comment.userComment}}
-                                    </div>
-                                    <div>
-                                       {{comment.user}}
-                                       {{ comment.date | date:"MM/dd/yyyy" }}
+                                    <div class="panel panel-success">
+                                       <div>
+                                           {{comment.userComment}}<br />
+                                           {{comment.user}} <br />
+                                           {{ comment.date | date:"MMM d, y" }}<br />
+                                       </div>
+                                       <div>
+                                           <button type="button" class="btn btn-info" ng-click="editingComment = true">Edit</button>
+                                            <button type="button" class="btn btn-danger" ng-click="deleteComment(act.randomActId, comment.commentId)">Delete</button>
+                                       </div>
+                                       <div ng-show="editingComment" class="panel panel-info">
+                                           <label> Comment </label>
+                                           <input type="text" name="comment" ng-model="comment.userComment"/> 
+                                           <button ng-click="editComment(comment.commentId, comment)" >Submit </button>
+                                       </div>
                                     </div>
                                </div>
                             </div>

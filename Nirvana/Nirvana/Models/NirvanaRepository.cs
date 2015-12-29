@@ -145,7 +145,7 @@ namespace Nirvana.Models
         public List<Comment> GetAllComments(int ActId)
         {
             var query = from a in context.Acts where a.RandomActId == ActId select a;
-            return query.SelectMany(acts => acts.Comments).ToList();
+            return query.SelectMany(acts => acts.Comments).OrderByDescending(c => c.Date).ThenBy(c => c.Date.Minute).ToList();
         }
 
         public bool DeleteComment(int ActId, int comment_id)
