@@ -11,7 +11,7 @@
             }
         );
 
-        http.get("api/Acts/CurrentUserRank").then(
+        $http.get("api/Acts/CurrentUserRank").then(
             function (response) {
                                 console.log("got the user!");
                                 $scope.theUser = response;
@@ -100,6 +100,7 @@
             $http.put(url, toSend).then(
                 function () {
                     console.log("edit success!");
+                    $scope.editingComment = false;
                 }, 
                 function () {
                     console.log("edit not successful");
