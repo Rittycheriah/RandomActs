@@ -1,5 +1,26 @@
 ﻿angular.module('my_nirvana')
     .controller('userProfileCtrl', function ($scope, $http, $location) {
+        debugger
+        $http.get("api/Acts/GetCurrentUser").then(
+            function (response) {
+                console.log("got the user!");
+                $scope.theUser = response;
+            }, 
+            function (response){
+                return console.log("failure @ user get");
+            }
+        );
+
+        http.get("api/Acts/CurrentUserRank").then(
+            function (response) {
+                                console.log("got the user!");
+                                $scope.theUser = response;
+                            },
+            function (response) {
+                return console.log("failure @ user get");
+            }
+            )
+
         $http.get('api/GetAllActs').then(
             function(response) {
                 $scope.things = response.data;
@@ -49,26 +70,41 @@
              );
         };
 
-        $scope.deleteComment = function (act_id, comment_id) {
-            debugger
-            var commToDelete = {
-                actId: act_id, commentId: comment_id
-            }
-
-            var toSend = JSON.stringify(commToDelete);
-
-            var url = "/api/Acts/DeleteComm/" + act_id;
+        $scope.deleteComment = function (comment_id) {
+            var url = "/api/Acts/DeleteComm/" + comment_id;
             $http({
                 url: url,
                 method: "DELETE",
-                data: toSend,
             }).then(
                 function () {
                     console.log("DELETED SUCCESS");
+                    var the_deleted = angular.element(document.querySelector('comments.commentId'));
+                    the_deleted.empty();
                 },
                 function () {
                     console.log("DELETED FAIL");
                 });
 
         }
+
+        $scope.editComment = function (comment_id, comment){
+            debugger
+
+            var editComment = {
+                userComment: comment
+            }
+
+            var toSend = JSON.stringify(editComment);
+
+            var url = "/api/Acts/EditComm/" + comment_id;
+            $http.put(url, toSend).then(
+                function () {
+                    console.log("edit success!");
+                }, 
+                function () {
+                    console.log("edit not successful");
+                }
+            )
+        }
+
     });

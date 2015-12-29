@@ -13,7 +13,7 @@ namespace Nirvana.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201512160034378_InitialCreate"; }
+            get { return "201512291620375_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

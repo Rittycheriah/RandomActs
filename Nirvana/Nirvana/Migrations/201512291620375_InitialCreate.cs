@@ -27,14 +27,14 @@ namespace Nirvana.Migrations
                 "dbo.Comments",
                 c => new
                     {
-                        UserComment = c.String(nullable: false, maxLength: 128),
-                        CommentId = c.Int(nullable: false),
+                        CommentId = c.Int(nullable: false, identity: true),
+                        UserComment = c.String(),
                         Date = c.DateTime(nullable: false),
                         ActId = c.Int(nullable: false),
                         User_Id = c.String(nullable: false, maxLength: 128),
                         RandomActsModel_RandomActId = c.Int(),
                     })
-                .PrimaryKey(t => t.UserComment)
+                .PrimaryKey(t => t.CommentId)
                 .ForeignKey("dbo.AspNetUsers", t => t.User_Id, cascadeDelete: true)
                 .ForeignKey("dbo.RandomActsModels", t => t.RandomActsModel_RandomActId)
                 .Index(t => t.User_Id)

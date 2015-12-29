@@ -9,11 +9,11 @@ namespace Nirvana.Models
     public class Comment
     {
         [Required]
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         [Key]
-        public string UserComment { get; set; }
         public int CommentId { get; set; }
+        public string UserComment { get; set; }
         public DateTime Date { get; set; }
         public int ActId { get; set; }
     }

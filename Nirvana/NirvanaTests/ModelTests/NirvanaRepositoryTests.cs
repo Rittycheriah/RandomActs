@@ -369,12 +369,25 @@ namespace NirvanaTests.ModelTests
             NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
             Comment delete_me = new Comment { ActId = 1, CommentId = 1, User = user1, UserComment = "YAS" };
             my_acts.Add(new RandomActsModel { RandomActId = 1, Owner = owner, RandomActTitle = "saved a kitten" });
+
+            var data = my_comments.AsQueryable();
+
+            mock_comment.As<IQueryable<Comment>>().Setup(m => m.Provider).Returns(data.Provider);
+            mock_comment.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            mock_comment.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mock_comment.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
+
+            mock_context.Setup(m => m.Comments).Returns(mock_comment.Object);
+
+            mock_comment.Setup(m => m.Add(It.IsAny<Comment>())).Callback((Comment c) => my_comments.Add(c));
+
             ConnectMocksToData();
 
             bool AddedComment = nirvana_repo.CreateComment(delete_me, 1);
+            my_comments.Add(delete_me);
 
             // act
-            bool deleted_comment = nirvana_repo.DeleteComment(1, 1);
+            bool deleted_comment = nirvana_repo.DeleteComment(1);
 
             // Assert
             Assert.IsTrue(deleted_comment);

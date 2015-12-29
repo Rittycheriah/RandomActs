@@ -9,7 +9,7 @@ namespace Nirvana.Models
 {
     public class NirvanaRepository : INirvanaRepository
     {
-        private NirvanaContext context;
+        public NirvanaContext context { set; get; }
 
         public IDbSet<ApplicationUser> Users { get { return context.Users; } }
 
@@ -148,16 +148,16 @@ namespace Nirvana.Models
             return query.SelectMany(acts => acts.Comments).OrderByDescending(c => c.Date).ThenBy(c => c.Date.Minute).ToList();
         }
 
-        public bool DeleteComment(int ActId, int comment_id)
+        public bool DeleteComment(int comment_id)
         {
-            var query = from a in context.Acts where a.RandomActId == ActId select a;
-            RandomActsModel target_act = null;
+            var query = from a in context.Comments where a.CommentId == comment_id select a;
+            Comment target_comment = null;
             bool result = true;
 
             try
             {
-                target_act = query.SingleOrDefault<RandomActsModel>();
-                target_act.Comments.RemoveAll(t => t.CommentId == comment_id);
+                target_comment = query.Single<Comment>();
+                context.Comments.Remove(target_comment);
                 context.SaveChanges();
                 result = true;
             }
