@@ -73,7 +73,7 @@ namespace Nirvana.Controllers
 
         [Route("api/Acts/{id}")]
         [HttpPost]
-        public Comment PostComment(int id, [FromBody]Comment NewComment)
+        public void Post(int id, [FromBody]Comment NewComment)
         {
 
             var userID = User.Identity.GetUserId();
@@ -83,21 +83,19 @@ namespace Nirvana.Controllers
 
             try
             {
-                 nirvana_repo.CreateComment(new_comment, new_comment.ActId);
+                 nirvana_repo.CreateComment(new_comment, id);
             }
             catch
             {
                 throw new ArgumentException();
             }
-
-            return new_comment;
         }
 
         [Route("api/Acts/GetComms/{id}")]
         [HttpGet]
-        public IEnumerable<Comment> GetCommentsForAct([FromBody] RandomActsModel act)
+        public IEnumerable<Comment> GetCommentsForAct(int id)
         {
-            return nirvana_repo.GetAllComments(act.RandomActId);
+            return nirvana_repo.GetAllComments(id);
         }
 
     }

@@ -11,12 +11,12 @@
 
         $scope.postComment = function (act, comment) {
             var newComment = {
-                userComment: comment, actId: act.RandomActId
+                userComment: comment, actId: act
             }
 
             var toSend = JSON.stringify(newComment);
-
-            var url = "api/Acts/" + act;
+            
+            var url = "/api/Acts/" + act;
            
             $http.post(url, toSend).then(
               function (response) { console.log("SUCCESS - comments using FROMURI"), isCommenting = false },
@@ -26,15 +26,9 @@
 
         $scope.showActComments = function (act_id) {
             debugger
-            var act_to_search = {
-                randomActId: act_id
-            };
-
-            var toSend = JSON.stringify(act_to_search);
-
             $scope.showComments = true;
             $http({
-                url: "api/Acts/GetComms/{id}", 
+                url: "api/Acts/GetComms/" + act_id, 
                 method: "GET", 
                 params: {randomActId: act_id}
                 }).then(
