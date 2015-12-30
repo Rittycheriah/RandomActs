@@ -10,21 +10,30 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Newtonsoft.Json.Linq;
+using System.Security.Principal;
+using System.Threading;
 
 namespace Nirvana.Controllers
 {
     public class ActsController : ApiController
     {
-        private INirvanaRepository nirvana_repo;
+        private NirvanaRepository nirvana_repo;
 
         public ActsController()
         {
             this.nirvana_repo = new NirvanaRepository();
         }
-        
-        public ActsController(INirvanaRepository int_nirvanarepo)
+
+        public ActsController(NirvanaRepository nirvanarepo)
         {
-            this.nirvana_repo = int_nirvanarepo;
+            this.nirvana_repo = nirvanarepo;
+        }
+
+        [Route("api/Acts/GetCurrentUser")]
+        [HttpGet]
+        public string GetUser()
+        {
+            return RequestContext.Principal.Identity.Name.ToString();
         }
 
         // just end points to retrieve data. 
@@ -59,7 +68,7 @@ namespace Nirvana.Controllers
 
             string user_id = User.Identity.GetUserId();
 
-            ApplicationUser owner = nirvana_repo.Users.FirstOrDefault(u => u.Id == user_id);
+            ApplicationUser owner = nirvana_repo.context.Users.FirstOrDefault(u => u.Id == user_id);
 
             RandomActsModel current = nirvana_repo.CreateAct(act_title, act_description, owner);
 
@@ -83,7 +92,7 @@ namespace Nirvana.Controllers
 
             try
             {
-                 nirvana_repo.CreateComment(new_comment, id);
+                nirvana_repo.CreateComment(new_comment, id);
             }
             catch
             {
@@ -96,6 +105,39 @@ namespace Nirvana.Controllers
         public IEnumerable<Comment> GetCommentsForAct(int id)
         {
             return nirvana_repo.GetAllComments(id);
+        }
+
+        [Route("api/Acts/DeleteComm/{id}")]
+        [HttpDelete]
+        public void Delete(int id)
+        {
+
+            try
+            {
+                nirvana_repo.DeleteComment(id);
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        [Route("api/Acts/EditComm/{id}")]
+        [HttpPut]
+        public void Edit(int id, [FromBody]Comment comment)
+        {
+            Thread.Sleep(2000);
+
+            string the_change = comment.UserComment;
+
+            try
+            {
+                nirvana_repo.UpdateComment(id, the_change);
+            }
+            catch(Exception e)
+            {
+                throw new ArgumentException();
+            }
         }
 
     }

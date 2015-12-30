@@ -35,7 +35,7 @@ namespace NirvanaTests.Controllers
         {
             var fake_repo = new Mock<INirvanaRepository>();
             fake_repo.Setup(r => r.GetAllActs()).Returns(list_of_acts);
-            inst_of_controller = new ActsController(fake_repo.Object);
+            //inst_of_controller = new ActsController(fake_repo.Object);
 
             fake_repo.Setup(r => r.GetAllActs(user1)).
                 Returns(list_of_acts.Where(a => a.Owner == user1).ToList());
