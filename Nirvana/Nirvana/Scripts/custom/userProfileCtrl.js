@@ -33,6 +33,7 @@
         $http.get('api/GetAllActs').then(
             function(response) {
                 $scope.things = response.data;
+                console.log(response.data, "here's all the acts");
                 console.log('SUCCESS!');
             }, function(response) {
                 return console.log('Failure - @ getallacts')
@@ -115,4 +116,12 @@
             )
         }
 
+        $scope.postLike = function (act_id) {
+            var url = "/api/Acts/PostLike/" + act_id;
+
+            $http.post(url).then(
+              function (response) { console.log("SUCCESS - LIKES") },
+              function (response) { console.log("ERRORRRRRR - LIKES"); }
+            )
+        }
     });

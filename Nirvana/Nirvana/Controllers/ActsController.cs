@@ -12,6 +12,7 @@ using Microsoft.Owin.Security;
 using Newtonsoft.Json.Linq;
 using System.Security.Principal;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace Nirvana.Controllers
 {
@@ -40,9 +41,24 @@ namespace Nirvana.Controllers
         // GET: api/Acts
         [Route("api/GetAllActs")]
         [HttpGet]
-        public IEnumerable<RandomActsModel> GetAllActs()
+        public string GetAllActs()
         {
-            return nirvana_repo.GetAllActs();
+            List<RandomActsModel> the_acts = new List<RandomActsModel>();
+
+            try
+            {
+                the_acts = nirvana_repo.GetAllActs();
+            }
+            catch (Exception the_exception)
+            {
+                var exception = the_exception;
+            }
+
+            string output = JsonConvert.SerializeObject(the_acts, Formatting.Indented,
+                new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }
+                );
+
+            return output;
         }
 
         // GET: api/Acts/5
@@ -157,6 +173,18 @@ namespace Nirvana.Controllers
             int UserTotal = nirvana_repo.GetTotalPoints(logged_in_user);
 
             return UserTotal;
+        }
+
+        [Route("api/Acts/PostLike/{id}")]
+        [HttpPost]
+        public void PostLike(int id)
+        {
+            string user_id = User.Identity.GetUserId();
+
+            ApplicationUser logged_in = nirvana_repo.context.Users.FirstOrDefault(u => u.Id == user_id);
+            RandomActsModel act = nirvana_repo.context.Acts.FirstOrDefault(a => a.RandomActId == id);
+
+            Likes the_like = nirvana_repo.CreateLike(act, logged_in);
         }
     }
 }

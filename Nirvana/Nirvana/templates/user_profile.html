@@ -1,20 +1,20 @@
-﻿<div class="container-fluid" ng-controller="userProfileCtrl">
+﻿<div class="container-fluid">
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="row">
                 <h1>Hello, {{UserRank.data.name}} {{UserName.data}}! You have {{UserTotal.data}} points. </h1>
-                <div ng-repeat="act in things"> 
+                <div ng-repeat="act in things track by act.RandomActId"> 
                     <div class="panel panel-success">
-                        <div class="panel-heading">{{act.randomActTitle}}</div>
+                        <div class="panel-heading">{{act.RandomActTitle}}</div>
                         <div class="panel panel-body">
-                             {{act.randomActDescription}}<br />
-                             Total Likes: {{act.likes.length}}
+                             {{act.RandomActDescription}}<br />
+                             Total Likes: {{act.Likes.length}}
                         </div>
                         <div class="panel panel-footer">
                             <button type="button" class="btn-success" ng-click="isCommenting = true"> Add Comment </button>
                             <button type="button" class="btn-success" ng-click="current_comment = true"> Show Comments </button>
-                            <button type="button" class="btn-info">
+                            <button type="button" class="btn-info" ng-click="postLike(act.randomActId)">
                                 <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Like 
                             </button>
 
