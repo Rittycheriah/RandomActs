@@ -3,7 +3,7 @@
         $http.get("api/Acts/GetCurrentUser").then(
             function (response) {
                 console.log("got the user!");
-                $scope.theUser = response;
+                $scope.UserName = response;
             }, 
             function (response){
                 return console.log("failure @ user get");
@@ -12,13 +12,23 @@
 
         $http.get("api/Acts/CurrentUserRank").then(
             function (response) {
-                                console.log("got the user rank!");
-                                $scope.theUser = response;
-                            },
+               console.log("got the user rank!");
+               $scope.UserRank = response;
+               },
             function (response) {
                 return console.log("failure @ user get rank");
             }
-            )
+           );
+
+        $http.get("api/Acts/TotalUserPts").then(
+            function (response) {
+                console.log("got the user total pts");
+                $scope.UserTotal = response; 
+            },
+            function () {
+                return console.log("failure @ user get total");
+            }
+         )
 
         $http.get('api/GetAllActs').then(
             function(response) {

@@ -31,11 +31,11 @@ namespace Nirvana.Migrations
                         UserComment = c.String(),
                         Date = c.DateTime(nullable: false),
                         ActId = c.Int(nullable: false),
-                        User_Id = c.String(nullable: false, maxLength: 128),
+                        User_Id = c.String(maxLength: 128),
                         RandomActsModel_RandomActId = c.Int(),
                     })
                 .PrimaryKey(t => t.CommentId)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
                 .ForeignKey("dbo.RandomActsModels", t => t.RandomActsModel_RandomActId)
                 .Index(t => t.User_Id)
                 .Index(t => t.RandomActsModel_RandomActId);
