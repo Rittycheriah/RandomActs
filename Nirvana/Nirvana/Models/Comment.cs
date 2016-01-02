@@ -8,7 +8,6 @@ namespace Nirvana.Models
 {
     public class Comment
     {
-        [Required]
         public virtual ApplicationUser User { get; set; }
 
         [Key]

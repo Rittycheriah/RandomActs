@@ -130,15 +130,33 @@ namespace Nirvana.Controllers
 
             string the_change = comment.UserComment;
 
-            try
-            {
-                nirvana_repo.UpdateComment(id, the_change);
-            }
-            catch(Exception e)
-            {
-                throw new ArgumentException();
-            }
+            nirvana_repo.UpdateComment(id, the_change);
         }
 
+        [Route("api/Acts/CurrentUserRank")]
+        [HttpGet]
+        public Rank GetRank()
+        {
+            string user_id = User.Identity.GetUserId();
+
+            ApplicationUser logged_in_user = nirvana_repo.context.Users.FirstOrDefault(u => u.Id == user_id);
+
+            Rank logged_in_user_rank = nirvana_repo.GetUserRank(logged_in_user);
+
+            return logged_in_user_rank;
+        }
+
+        [Route("api/Acts/TotalUserPts")]
+        [HttpGet]
+        public int GetTotal()
+        {
+            string user_id = User.Identity.GetUserId();
+
+            ApplicationUser logged_in_user = nirvana_repo.context.Users.FirstOrDefault(u => u.Id == user_id);
+
+            int UserTotal = nirvana_repo.GetTotalPoints(logged_in_user);
+
+            return UserTotal;
+        }
     }
 }
