@@ -41,24 +41,14 @@ namespace Nirvana.Controllers
         // GET: api/Acts
         [Route("api/GetAllActs")]
         [HttpGet]
-        public string GetAllActs()
+        public List<RandomActsModel> GetAllActs()
         {
             List<RandomActsModel> the_acts = new List<RandomActsModel>();
 
-            try
-            {
-                the_acts = nirvana_repo.GetAllActs();
-            }
-            catch (Exception the_exception)
-            {
-                var exception = the_exception;
-            }
+            the_acts = nirvana_repo.GetAllActs();
 
-            string output = JsonConvert.SerializeObject(the_acts, Formatting.Indented,
-                new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }
-                );
-
-            return output;
+            return the_acts;
+  
         }
 
         // GET: api/Acts/5
@@ -186,5 +176,15 @@ namespace Nirvana.Controllers
 
             Likes the_like = nirvana_repo.CreateLike(act, logged_in);
         }
+
+        [Route("api/Acts/Leaderboard")]
+        [HttpGet]
+        public Dictionary<string, int> Leaderboard()
+        {
+            Dictionary<string, int> leaderboard = nirvana_repo.GetAllUsersRanks();
+
+            return leaderboard;
+        }
+
     }
 }

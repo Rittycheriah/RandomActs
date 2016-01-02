@@ -4,12 +4,12 @@
         <div class="col-md-4">
             <div class="row">
                 <h1>Hello, {{UserRank.data.name}} {{UserName.data}}! You have {{UserTotal.data}} points. </h1>
-                <div ng-repeat="act in things track by act.RandomActId"> 
+                <div ng-repeat="act in things track by $index"> 
                     <div class="panel panel-success">
-                        <div class="panel-heading">{{act.RandomActTitle}}</div>
+                        <div class="panel-heading">{{act.randomActTitle}}</div>
                         <div class="panel panel-body">
-                             {{act.RandomActDescription}}<br />
-                             Total Likes: {{act.Likes.length}}
+                             {{act.randomActDescription}}<br />
+                             Total Likes: {{act.likes.length}}
                         </div>
                         <div class="panel panel-footer">
                             <button type="button" class="btn-success" ng-click="isCommenting = true"> Add Comment </button>
