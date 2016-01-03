@@ -43,9 +43,13 @@ namespace Nirvana.Controllers
         [HttpGet]
         public List<RandomActsModel> GetAllActs()
         {
+            string user_id = User.Identity.GetUserId();
+
+            ApplicationUser owner = nirvana_repo.context.Users.FirstOrDefault(u => u.Id == user_id);
+
             List<RandomActsModel> the_acts = new List<RandomActsModel>();
 
-            the_acts = nirvana_repo.GetAllActs();
+            the_acts = nirvana_repo.GetProfileActs(owner);
 
             return the_acts;
   
@@ -188,6 +192,17 @@ namespace Nirvana.Controllers
             return json;
         }
 
+        [Route("api/Acts/GetCurrentUserActs")]
+        [HttpGet]
+        public IEnumerable<RandomActsModel> MyActs()
+        {
+            string user_id = User.Identity.GetUserId();
 
+            ApplicationUser owner = nirvana_repo.context.Users.FirstOrDefault(u => u.Id == user_id);
+
+            List<RandomActsModel> the_acts = nirvana_repo.GetAllActs(owner);
+
+            return the_acts;
+        }
     }
 }

@@ -9,7 +9,9 @@
                         <div class="panel-heading">{{act.randomActTitle}}</div>
                         <div class="panel panel-body">
                              {{act.randomActDescription}}<br />
-                             Total Likes: {{act.likes.length}}
+                             By: {{act.owner.userName}}<br />
+                             Total Likes: {{act.likes.length}} <br />
+                             Total Points: {{act.pointsEarned}} <br />
                         </div>
                         <div class="panel panel-footer">
                             <button type="button" class="btn-success" ng-click="isCommenting = true"> Add Comment </button>

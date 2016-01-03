@@ -29,10 +29,14 @@ namespace Nirvana.Models
             return context.Acts.OrderByDescending(a => a.Date).ToList();
         }
 
+        public List<RandomActsModel> GetProfileActs(ApplicationUser _user)
+        {
+            return context.Acts.Where(acts => acts.Owner.Id != _user.Id).OrderByDescending(a => a.Date).ToList();
+        }
+
         public List<RandomActsModel> GetAllActs(ApplicationUser _user)
         {
-            var UserActsQuery = from acts in context.Acts where acts.Owner == _user select acts;
-            return UserActsQuery.ToList<RandomActsModel>();
+            return context.Acts.Where(a => a.Owner.Id == _user.Id).OrderByDescending(a => a.Date).ToList();
         }
 
         public RandomActsModel GetActById(int act_id)

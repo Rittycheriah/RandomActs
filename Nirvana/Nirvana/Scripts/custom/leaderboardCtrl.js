@@ -1,6 +1,5 @@
 ﻿angular.module('my_nirvana')
     .controller('leaderboardCtrl', function ($scope, $http, $location) {
-        debugger
         $http.get("api/Acts/Leaderboard").then(
             function (response) {
                 var asJSON = JSON.parse(response.data);
