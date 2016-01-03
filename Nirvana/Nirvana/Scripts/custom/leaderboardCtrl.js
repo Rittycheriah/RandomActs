@@ -3,7 +3,9 @@
         debugger
         $http.get("api/Acts/Leaderboard").then(
             function (response) {
-                $scope.allRanks = response.data;
+                var asJSON = JSON.parse(response.data);
+                $scope.allRanks = asJSON;
+                console.log(response.data, "here's the leaderboard data");
                 console.log("SUCCESS on Leaderboard");
             }, 
             function (response) {

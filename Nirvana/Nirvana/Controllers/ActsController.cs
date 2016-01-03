@@ -179,12 +179,15 @@ namespace Nirvana.Controllers
 
         [Route("api/Acts/Leaderboard")]
         [HttpGet]
-        public Dictionary<string, int> Leaderboard()
+        public string Leaderboard()
         {
             Dictionary<string, int> leaderboard = nirvana_repo.GetAllUsersRanks();
 
-            return leaderboard;
+            string json = JsonConvert.SerializeObject(leaderboard, Formatting.Indented);
+
+            return json;
         }
+
 
     }
 }

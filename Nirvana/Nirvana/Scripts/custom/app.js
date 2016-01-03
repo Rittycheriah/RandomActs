@@ -12,6 +12,10 @@ nirvana_mod.config(function ($routeProvider, $locationProvider) {
           templateUrl: '/templates/user_profile.html',
           controller: 'userProfileCtrl'
       }).
+      when('/myActs', {
+          templateUrl: '/templates/myActs.html',
+          controller: 'myActsCtrl'
+      }).
       when('/addAct', {
           templateUrl: '/templates/add_acts.html',
           controller: 'addCtrl'

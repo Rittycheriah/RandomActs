@@ -8,8 +8,8 @@
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <div ng-repeat="user in allRanks">
-                <p> here's where the ranks will go </p>
+            <div ng-repeat="(key, value) in allRanks track by $index">
+                    <h1>{{key}} {{value}}</h1>
             </div>
         </div>
         <div class="col-md-4"></div>
