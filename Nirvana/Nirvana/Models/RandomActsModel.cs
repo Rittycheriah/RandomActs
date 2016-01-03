@@ -9,7 +9,7 @@ namespace Nirvana.Models
     public class RandomActsModel
     {
         [Required]
-        public ApplicationUser Owner { get; set; }
+        public virtual ApplicationUser Owner { get; set; }
 
         [Key]
         public int RandomActId { get; set; }

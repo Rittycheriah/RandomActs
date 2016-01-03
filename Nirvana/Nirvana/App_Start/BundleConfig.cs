@@ -31,7 +31,8 @@ namespace Nirvana
                       "~/Scripts/custom/addCtrl.js", 
                       "~/Scripts/custom/userProfileCtrl.js",
                       "~/Scripts/custom/splashCtrl.js", 
-                      "~/Scripts/custom/leaderboardCtrl.js", 
+                      "~/Scripts/custom/leaderboardCtrl.js",
+                      "~/Scripts/custom/myActsCtrl.js", 
                       "~/Scripts/lodash.js"
                     ));
 

@@ -12,6 +12,7 @@ using Microsoft.Owin.Security;
 using Newtonsoft.Json.Linq;
 using System.Security.Principal;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace Nirvana.Controllers
 {
@@ -40,9 +41,18 @@ namespace Nirvana.Controllers
         // GET: api/Acts
         [Route("api/GetAllActs")]
         [HttpGet]
-        public IEnumerable<RandomActsModel> GetAllActs()
+        public List<RandomActsModel> GetAllActs()
         {
-            return nirvana_repo.GetAllActs();
+            string user_id = User.Identity.GetUserId();
+
+            ApplicationUser owner = nirvana_repo.context.Users.FirstOrDefault(u => u.Id == user_id);
+
+            List<RandomActsModel> the_acts = new List<RandomActsModel>();
+
+            the_acts = nirvana_repo.GetProfileActs(owner);
+
+            return the_acts;
+  
         }
 
         // GET: api/Acts/5
@@ -157,6 +167,42 @@ namespace Nirvana.Controllers
             int UserTotal = nirvana_repo.GetTotalPoints(logged_in_user);
 
             return UserTotal;
+        }
+
+        [Route("api/Acts/PostLike/{id}")]
+        [HttpPost]
+        public void PostLike(int id)
+        {
+            string user_id = User.Identity.GetUserId();
+
+            ApplicationUser logged_in = nirvana_repo.context.Users.FirstOrDefault(u => u.Id == user_id);
+            RandomActsModel act = nirvana_repo.context.Acts.FirstOrDefault(a => a.RandomActId == id);
+
+            Likes the_like = nirvana_repo.CreateLike(act, logged_in);
+        }
+
+        [Route("api/Acts/Leaderboard")]
+        [HttpGet]
+        public string Leaderboard()
+        {
+            Dictionary<string, int> leaderboard = nirvana_repo.GetAllUsersRanks();
+
+            string json = JsonConvert.SerializeObject(leaderboard, Formatting.Indented);
+
+            return json;
+        }
+
+        [Route("api/Acts/GetCurrentUserActs")]
+        [HttpGet]
+        public IEnumerable<RandomActsModel> MyActs()
+        {
+            string user_id = User.Identity.GetUserId();
+
+            ApplicationUser owner = nirvana_repo.context.Users.FirstOrDefault(u => u.Id == user_id);
+
+            List<RandomActsModel> the_acts = nirvana_repo.GetAllActs(owner);
+
+            return the_acts;
         }
     }
 }

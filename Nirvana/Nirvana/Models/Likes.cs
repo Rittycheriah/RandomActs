@@ -11,7 +11,7 @@ namespace Nirvana.Models
         // until a person likes something, a like does not exist
         // unlike ==s delete
         [Required]
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
         public RandomActsModel Act { get; set; }
 
         [Key]

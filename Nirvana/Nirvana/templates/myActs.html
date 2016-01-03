@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div ng-repeat="act in myActs">
+                <div class="panel panel-success">
+                    <div class="panel-heading">{{act.randomActTitle}}</div>
+                    <div class="panel panel-body">
+                        {{act.randomActDescription}}<br />
+                        Total Likes: {{act.likes.length}}
+                        Total Points: {{act.pointsEarned}}
+                    </div>
+                </div>
+            </div>
+        </div>
+       <div class="col-md-4"></div>
+    </div>
+</body>
+</html>
