@@ -6,10 +6,21 @@
 </head>
 <body>
     <div class="row">
+        <h1>Where's your Nirvana at?</h1>
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <div ng-repeat="(key, value) in allRanks track by $index">
-                    <h1>{{key}} {{value}}</h1>
+
+            <div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge"><h2>Points</h2></span>
+                        <h2>User</h2>
+                    </li>
+                    <li class="list-group-item" ng-repeat="(key, value) in allRanks track by $index">
+                        <span class="badge"><h4>{{value}}</h4></span>
+                        <h4>{{key}}</h4>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="col-md-4"></div>

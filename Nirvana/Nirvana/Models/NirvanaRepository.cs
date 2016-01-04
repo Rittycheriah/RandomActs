@@ -298,7 +298,10 @@ namespace Nirvana.Models
             {
                 return -1;
             }
-
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e);
+            }
             return selected_act.PointsEarned;
         }
 

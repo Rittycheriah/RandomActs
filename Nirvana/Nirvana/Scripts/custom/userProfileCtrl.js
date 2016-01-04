@@ -50,11 +50,12 @@
             var url = "/api/Acts/" + act;
            
             $http.post(url, toSend).then(
-              function (response) { console.log("SUCCESS - comments using FROMURI"), isCommenting = false, $scope.showActComments(act) },
+              function (response) { console.log("SUCCESS - comments using FROMURI"), $scope.isCommenting = false, $scope.showActComments(act) },
               function (response) { console.log("ERRORRRRRR - comments using FROM URI"); }
             )
         };
 
+        $scope.isCommenting = false;
         $scope.current_comment = false;
         $scope.editingComment = false;
 
