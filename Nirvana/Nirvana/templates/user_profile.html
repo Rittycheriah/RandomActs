@@ -8,10 +8,10 @@
                     <div class="panel panel-success">
                         <div class="panel-heading">{{act.randomActTitle}}</div>
                         <div class="panel panel-body">
-                             {{act.randomActDescription}}<br />
-                             By: {{act.owner.userName}}<br />
-                             Total Likes: {{act.likes.length}} <br />
-                             Total Points: {{act.pointsEarned}} <br />
+                             <p>Description: {{act.randomActDescription}} </p><br />
+                             <label>By: {{act.owner.userName}}</label> <br />
+                             <label ng-model="act.likes.length">Total Likes: {{act.likes.length}} </label> <br />
+                             <label>Total Points: {{act.pointsEarned}}</label><br />
                         </div>
                         <div class="panel panel-footer">
                             <button type="button" class="btn-success" ng-click="isCommenting = true"> Add Comment </button>
@@ -20,7 +20,7 @@
                                 <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Like 
                             </button>
 
-                            <div ng-show="isCommenting === true" class="panel panel-body">
+                            <div ng-show="isCommenting" ng-hide="closeIt" class="panel panel-body">
                                 <label> Comment: </label>
                                 <input type="text" ng-model="comment" name="comment"/>
                                 <button ng-click="postComment(act.randomActId, comment)"> Submit</button>
@@ -34,10 +34,10 @@
                                            {{ comment.date | date:"MMM d, y" }}<br />
                                        </div>
                                        <div>
-                                           <button type="button" class="btn btn-info" ng-click="editingComment = true">Edit</button>
+                                           <button type="button" class="btn btn-info" ng-click="editingComment = comment.commentId">Edit</button>
                                             <button type="button" class="btn btn-danger" ng-click="deleteComment(comment.commentId)">Delete</button>
                                        </div>
-                                       <div ng-show="editingComment === true" class="panel panel-info">
+                                       <div ng-show="editingComment" ng-hide="closeIt2" class="panel panel-info">
                                            <label> Edit Comment </label>
                                            <input type="text" name="comment" ng-model="comment.userComment"/> 
                                            <button ng-click="editComment(comment.commentId, comment.userComment)" >Submit </button>

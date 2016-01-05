@@ -1,5 +1,9 @@
 ﻿angular.module('my_nirvana')
     .controller('userProfileCtrl', function ($scope, $http, $location) {
+        $scope.isCommenting = false;
+        $scope.current_comment = false;
+        $scope.editingComment = false;
+
         $http.get("api/Acts/GetCurrentUser").then(
             function (response) {
                 console.log("got the user!");
@@ -34,7 +38,6 @@
             function(response) {
                 $scope.things = response.data;
                 console.log(response.data, "here's all the acts");
-                console.log('SUCCESS!');
             }, function(response) {
                 return console.log('Failure - @ getallacts')
             }
@@ -50,14 +53,10 @@
             var url = "/api/Acts/" + act;
            
             $http.post(url, toSend).then(
-              function (response) { console.log("SUCCESS - comments using FROMURI"), $scope.isCommenting = false, $scope.showActComments(act) },
+              function (response) { console.log("SUCCESS - comments using FROMURI"); $scope.closeIt = true; $scope.showActComments(act) },
               function (response) { console.log("ERRORRRRRR - comments using FROM URI"); }
             )
         };
-
-        $scope.isCommenting = false;
-        $scope.current_comment = false;
-        $scope.editingComment = false;
 
         $scope.showActComments = function (act_id) {
             $scope.current_comment = true;

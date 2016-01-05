@@ -205,11 +205,11 @@ namespace Nirvana.Controllers
             return the_acts;
         }
 
-        [Route("api/Acts/Search/{id}")]
+        [Route("api/Acts/Search/")]
         [HttpGet]
-        public IEnumerable<string> SearchActs([FromUri] string id)
+        public List<RandomActsModel> GetSearchActs()
         {
-            return nirvana_repo.SearchActs(id);
+            return nirvana_repo.GetAllActs();
         }
     }
 }

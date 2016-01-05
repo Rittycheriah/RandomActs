@@ -34,12 +34,16 @@ namespace Nirvana
                       "~/Scripts/custom/splashCtrl.js", 
                       "~/Scripts/custom/leaderboardCtrl.js",
                       "~/Scripts/custom/myActsCtrl.js", 
-                      "~/Scripts/lodash.js"
+                      "~/Scripts/lodash.js", 
+                      "~/Scripts/custom/term.js"
                     ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css", 
+                      "~/Content/general.css",
+                      "~/Content/userProfile.css"
+                      ));
         }
     }
 }
