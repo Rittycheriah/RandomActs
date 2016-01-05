@@ -73,7 +73,6 @@
                     var found_act = _.find($scope.things, function (act) {
                         return act.randomActId === actID;
                     });
-                    debugger
                     found_act.comments = $scope.comments;
                 }, function (response) {
                     console.log("ERRORR - GET comments");

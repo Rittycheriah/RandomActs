@@ -245,6 +245,7 @@
     <Content Include="Scripts\custom\app.js" />
     <Content Include="Scripts\custom\leaderboardCtrl.js" />
     <Content Include="Scripts\custom\myActsCtrl.js" />
+    <Content Include="Scripts\custom\searchTerm.js" />
     <Content Include="Scripts\custom\splashCtrl.js" />
     <Content Include="Scripts\custom\userProfileCtrl.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -263,6 +264,7 @@
     <Content Include="templates\add_acts.html" />
     <Content Include="templates\leaderboard.html" />
     <Content Include="templates\myActs.html" />
+    <Content Include="templates\Search.html" />
     <Content Include="templates\splash.html" />
     <Content Include="templates\user_profile.html" />
     <Content Include="Web.config" />

@@ -204,5 +204,12 @@ namespace Nirvana.Controllers
 
             return the_acts;
         }
+
+        [Route("api/Acts/Search/{id}")]
+        [HttpGet]
+        public IEnumerable<string> SearchActs([FromUri] string id)
+        {
+            return nirvana_repo.SearchActs(id);
+        }
     }
 }

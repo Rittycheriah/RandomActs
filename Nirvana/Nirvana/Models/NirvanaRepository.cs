@@ -73,42 +73,42 @@ namespace Nirvana.Models
             Rank UserRank = new Rank();
             RankDefinitions this_rank = new RankDefinitions();
 
-            if (TotalPts < 10 && TotalPts > 0)
+            if (TotalPts <= 10 && TotalPts > 0)
             {
                 var query = context.Definitions.Where(n => n.RankingCode == 1);
                 this_rank = query.First();
             }
-            else if (TotalPts > 10 && TotalPts < 20)
+            else if (TotalPts > 10 && TotalPts <= 20)
             {
                 var query = context.Definitions.Where(n => n.RankingCode == 2);
                 this_rank = query.First();
             }
-            else if (TotalPts > 20 && TotalPts < 30)
+            else if (TotalPts > 20 && TotalPts <= 30)
             {
                 var query = context.Definitions.Where(n => n.RankingCode == 3);
                 this_rank = query.First();
             }
-            else if (TotalPts > 30 && TotalPts < 40)
+            else if (TotalPts > 30 && TotalPts <= 40)
             {
                 var query = context.Definitions.Where(n => n.RankingCode == 4);
                 this_rank = query.First();
             }
-            else if (TotalPts > 40 && TotalPts < 60)
+            else if (TotalPts > 40 && TotalPts <= 60)
             {
                 var query = context.Definitions.Where(n => n.RankingCode == 5);
                 this_rank = query.First();
             }
-            else if (TotalPts > 60 && TotalPts < 75)
+            else if (TotalPts > 60 && TotalPts <= 75)
             {
                 var query = context.Definitions.Where(n => n.RankingCode == 6);
                 this_rank = query.First();
             }
-            else if (TotalPts > 75 && TotalPts < 100)
+            else if (TotalPts > 75 && TotalPts <= 100)
             {
                 var query = context.Definitions.Where(n => n.RankingCode == 7);
                 this_rank = query.First();
             }
-            else if (TotalPts > 100 && TotalPts < 200)
+            else if (TotalPts > 100 && TotalPts <= 200)
             {
                 var query = context.Definitions.Where(n => n.RankingCode == 8);
                 this_rank = query.First();
@@ -119,6 +119,7 @@ namespace Nirvana.Models
             UserRank.CommentFeat = this_rank.RankingComments;
             UserRank.MinimumPtReq = this_rank.RankingMinPt;
             UserRank.SocialMedia = this_rank.RankingSocial;
+            context.SaveChanges();
 
             return UserRank;
 
@@ -307,10 +308,17 @@ namespace Nirvana.Models
 
         public List<string> SearchActs(string description)
         {
-            var query = from acts in context.Acts select acts.RandomActTitle;
-            List<string> found_acts = query.Where(acts => Regex.IsMatch(acts, description, RegexOptions.IgnoreCase)).Select(acts => acts).ToList();
-            found_acts.Sort();
-            return found_acts;
+            try
+            {
+                var query = from acts in context.Acts select acts.RandomActTitle;
+                List<string> found_acts = query.Where(a => a.Contains(description)).ToList();
+                found_acts.Sort();
+                return found_acts;
+            }
+            catch (ArgumentNullException)
+            {
+                throw new ArgumentNullException("Sorry nothing was found for your term");
+            }
         }
     }
 

@@ -24,6 +24,10 @@ nirvana_mod.config(function ($routeProvider, $locationProvider) {
           templateUrl: '/templates/leaderboard.html', 
           controller: 'leaderboardCtrl'
       }).
+      when('/search', {
+          templateUrl: '/templates/Search.html',
+          controller: 'searchTerm'
+      }).
       otherwise({
           redirectTo: '/'
       });
