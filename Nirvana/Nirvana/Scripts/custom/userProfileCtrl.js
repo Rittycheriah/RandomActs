@@ -1,8 +1,7 @@
 ﻿angular.module('my_nirvana')
-    .controller('userProfileCtrl', function ($scope, $http, $location) {
+    .controller('userProfileCtrl', function ($scope, $http, $location, $route) {
         $scope.isCommenting = false;
         $scope.current_comment = false;
-        $scope.editingComment = false;
 
         $http.get("api/Acts/GetCurrentUser").then(
             function (response) {
@@ -61,18 +60,23 @@
         $scope.showActComments = function (act_id) {
             $scope.current_comment = true;
             $scope.showComments = true;
+            debugger
             $http({
                 url: "api/Acts/GetComms/" + act_id, 
                 method: "GET", 
                 params: {randomActId: act_id}
-                }).then(
+            }).then(
                 function (response) {
                     $scope.comments = response.data;
-                    var actID = $scope.comments[0].actId;
-                    var found_act = _.find($scope.things, function (act) {
+                    if(response.data.length == 0){
+                        $scope.comment = ["There are no comments for this act"];
+                    } else {
+                        var actID = $scope.comments[0].actId;
+                        found_act = _.find($scope.things, function (act) {
                         return act.randomActId === actID;
-                    });
-                    found_act.comments = $scope.comments;
+                        });
+                        found_act.comments = $scope.comments;
+                    };
                 }, function (response) {
                     console.log("ERRORR - GET comments");
                 }
@@ -87,8 +91,7 @@
             }).then(
                 function () {
                     console.log("DELETED SUCCESS");
-                    var the_deleted = angular.element(document.querySelector('comments.commentId'));
-                    the_deleted.empty();
+                    reloadRoute();
                 },
                 function () {
                     console.log("DELETED FAIL");
@@ -122,5 +125,13 @@
               function (response) { console.log("SUCCESS - LIKES") },
               function (response) { console.log("ERRORRRRRR - LIKES"); }
             )
+        }
+
+        $scope.changeEdit = function (comm_id){
+            return $scope.editingComment = comm_id;
+        }
+
+        var reloadRoute = function () {
+            $route.reload();
         }
     });

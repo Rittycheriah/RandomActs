@@ -1,9 +1,9 @@
 ﻿<div class="container-fluid">
     <div class="row">
+        <h1>Hello, {{UserRank.data.name}} {{UserName.data}}! You have {{UserTotal.data}} points. </h1>
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="row">
-                <h1>Hello, {{UserRank.data.name}} {{UserName.data}}! You have {{UserTotal.data}} points. </h1>
                 <div ng-repeat="act in things track by $index"> 
                     <div class="panel panel-success">
                         <div class="panel-heading">{{act.randomActTitle}}</div>
@@ -20,7 +20,7 @@
                                 <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Like 
                             </button>
 
-                            <div ng-show="isCommenting" ng-hide="closeIt" class="panel panel-body">
+                            <div ng-show="isCommenting" class="panel panel-body ng-hide">
                                 <label> Comment: </label>
                                 <input type="text" ng-model="comment" name="comment"/>
                                 <button ng-click="postComment(act.randomActId, comment)"> Submit</button>
@@ -34,10 +34,10 @@
                                            {{ comment.date | date:"MMM d, y" }}<br />
                                        </div>
                                        <div>
-                                           <button type="button" class="btn btn-info" ng-click="editingComment = comment.commentId">Edit</button>
+                                           <button type="button" class="btn btn-info" ng-click="changeEdit(comment.commentId)">Edit</button>
                                             <button type="button" class="btn btn-danger" ng-click="deleteComment(comment.commentId)">Delete</button>
                                        </div>
-                                       <div ng-show="editingComment" ng-hide="closeIt2" class="panel panel-info">
+                                       <div ng-show="editingComment == comment.commentId" class="ng-hide panel panel-info">
                                            <label> Edit Comment </label>
                                            <input type="text" name="comment" ng-model="comment.userComment"/> 
                                            <button ng-click="editComment(comment.commentId, comment.userComment)" >Submit </button>
