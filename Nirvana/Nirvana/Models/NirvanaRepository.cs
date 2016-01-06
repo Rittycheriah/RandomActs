@@ -73,7 +73,7 @@ namespace Nirvana.Models
             Rank UserRank = new Rank();
             RankDefinitions this_rank = new RankDefinitions();
 
-            if (TotalPts <= 10 && TotalPts > 0)
+            if (TotalPts <= 10 && TotalPts >= 0)
             {
                 var query = context.Definitions.Where(n => n.RankingCode == 1);
                 this_rank = query.First();

@@ -12,7 +12,11 @@
 
         $http.get("api/Acts/GetCurrentUserActs").then(
             function (response) {
-            $scope.myActs = response.data;
+                $scope.myActs = response.data;
+                if (response.data.length === 0)
+                {
+                    $scope.sorryMsg = "You don't have any acts. Please log an act to gain points!";
+                }
             },
             function (response) {
             return console.log("failure @ myActs");
