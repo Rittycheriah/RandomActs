@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var nirvana_mod = angular.module('my_nirvana', ['ngRoute', 'ui.bootstrap']);
+var nirvana_mod = angular.module('my_nirvana', ['ngRoute', 'ui.bootstrap', 'nirvana_filters']);
 
 nirvana_mod.config(function ($routeProvider, $locationProvider) {
     $routeProvider.

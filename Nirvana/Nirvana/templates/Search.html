@@ -1,13 +1,22 @@
-﻿<div class="col-md-4"></div>
-<div class="col-md-4">
-    <form class="navbar-form navbar-left" role="search" ng-controller="searchTerm">
-        <div class="form-group">
-            <input type="text" class="form-control" ng-model="leTerm" placeholder="Search Acts for Inspiration">
+﻿<div class="row">
+    <h1>Wanna get inspired? </h1>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="leTerm" placeholder="Search Acts for Inspiration">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-1"></div>
         </div>
-    </form>
-    <div ng-repeat="act in found_acts | array | filter:searchTerm">
-        <div>{{act.randomActTitle}}</div>
-        <div>{{act.randomActDescription}}</div>
+        <div ng-repeat="act in found_acts | filter:leTerm">
+            <div>{{act}}</div>
+            <hr /> 
+        </div>
     </div>
+    <div class="col-md-4"></div>
 </div>
-<div class="col-md-4"></div>
