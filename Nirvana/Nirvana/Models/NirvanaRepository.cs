@@ -241,6 +241,26 @@ namespace Nirvana.Models
             return result;
         }
 
+        public bool CheckLikes(RandomActsModel act, ApplicationUser User)
+        {
+            bool has_liked = false;
+
+
+
+            List<Likes> found = context.Likes.Where(l => l.Act.RandomActId == act.RandomActId && l.User.Id == User.Id).ToList();
+
+            if (found.Count >= 1)
+            {
+                has_liked = false;
+            }
+            else if (found.Count == 0)
+            {
+                has_liked = true;
+            }
+
+            return has_liked;
+        }
+
         public Likes CreateLike(RandomActsModel act, ApplicationUser UserWhoLiked)
         {
             Likes create_me = new Likes { Act = act, User = UserWhoLiked };

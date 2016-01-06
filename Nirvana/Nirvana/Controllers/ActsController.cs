@@ -171,14 +171,20 @@ namespace Nirvana.Controllers
 
         [Route("api/Acts/PostLike/{id}")]
         [HttpPost]
-        public void PostLike(int id)
+        public HttpStatusCode PostLike(int id)
         {
             string user_id = User.Identity.GetUserId();
 
             ApplicationUser logged_in = nirvana_repo.context.Users.FirstOrDefault(u => u.Id == user_id);
             RandomActsModel act = nirvana_repo.context.Acts.FirstOrDefault(a => a.RandomActId == id);
 
-            Likes the_like = nirvana_repo.CreateLike(act, logged_in);
+            if (nirvana_repo.CheckLikes(act, logged_in) == true)
+            {
+                Likes the_like = nirvana_repo.CreateLike(act, logged_in);
+                return HttpStatusCode.OK;
+            }
+
+            return HttpStatusCode.BadRequest;
         }
 
         [Route("api/Acts/Leaderboard")]

@@ -122,8 +122,14 @@
             var url = "/api/Acts/PostLike/" + act_id;
 
             $http.post(url).then(
-              function (response) { console.log("SUCCESS - LIKES") },
-              function (response) { console.log("ERRORRRRRR - LIKES"); }
+              function (response) {
+                  console.log("SUCCESS - LIKES")
+                  reloadRoute();
+              },
+              function (response) {
+                  console.log("ERRORRRRRR - LIKES");
+                  $scope.likeError = "Sorry, you've already liked that!"
+              }
             )
         }
 
