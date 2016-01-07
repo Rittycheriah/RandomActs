@@ -42,7 +42,8 @@ namespace Nirvana
                       "~/Content/bootstrap.css",
                       "~/Content/site.css", 
                       "~/Content/general.css",
-                      "~/Content/userProfile.css"
+                      "~/Content/userProfile.css", 
+                      "~/Content/font-awesome.css"
                       ));
         }
     }

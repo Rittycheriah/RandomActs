@@ -41,6 +41,7 @@
                                            <label> Edit Comment </label>
                                            <input type="text" name="comment" ng-model="comment.userComment"/> 
                                            <button ng-click="editComment(comment.commentId, comment.userComment)" >Submit </button>
+                                           <i class="fa fa-spinner fa-spin ng-hide" ng-show="waiting"></i>
                                        </div>
                                     </div>
                                </div>

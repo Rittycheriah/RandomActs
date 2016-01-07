@@ -99,7 +99,8 @@
 
         }
 
-        $scope.editComment = function (comment_id, comment){
+        $scope.editComment = function (comment_id, comment) {
+            $scope.waiting = true;
             var editComment = {
                 userComment: comment
             }
@@ -111,6 +112,7 @@
                 function () {
                     console.log("edit success!");
                     $scope.editingComment = false;
+                    $scope.waiting = false;
                 }, 
                 function () {
                     console.log("edit not successful");
