@@ -1,1 +1,23 @@
-﻿
+﻿#titleText {
+  font-size: 100px;
+  font-family: "Finger Paint", cursive;
+  text-align: center;
+}
+
+#titleQuote {
+  text-align: center;
+  font-family: 'Mandali', sans-serif;
+}
+
+.navbar {
+  font-family: 'Mandali', sans-serif;
+}
+
+.mainText {
+  font-family: 'Mandali', sans-serif;
+}
+
+.purposeTxt {
+  text-align: center;
+  font-family: Comfortaa, cursive;
+}

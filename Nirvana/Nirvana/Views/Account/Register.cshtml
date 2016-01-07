@@ -9,6 +9,7 @@
 {
     @Html.AntiForgeryToken()
     <h4>Create a new account.</h4>
+    <h5>Please note: All passwords must have at least 1 capital letter, 1 special character, and 1 number</h5>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">

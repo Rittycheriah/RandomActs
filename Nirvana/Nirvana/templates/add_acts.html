@@ -1,16 +1,25 @@
-﻿<form method="post" novalidate >
-    <fieldset>
-        <legend> Add An Act </legend>
-        <div>
-            <label for="actTitle"> Act Title</label>
-            <input type="text" name="ActTitle" ng-model="new_act.randomActTitle"/>
-        </div>
-        <div>
-            <label for="actDescription"> Act Description</label>
-            <input type="text" name="ActDescription" ng-model="new_act.randomActDescription"/>
-        </div>
-        <div>
-            <button ng-click="postActs()"> Gain Karma </button>
-        </div>
-    </fieldset>
-</form>
+﻿
+<div class="row mainText">
+    <h1 class="purposeTxt"> Log Your Act Below to Gain Points! </h1>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form method="post" novalidate>
+            <fieldset>
+                <legend> Add An Act </legend>
+                <div>
+                    <label for="actTitle"> Act Title</label>
+                    <input type="text" name="ActTitle" ng-model="new_act.randomActTitle" />
+                </div>
+                <div>
+                    <label for="actDescription"> Act Description</label>
+                    <input type="text" name="ActDescription" ng-model="new_act.randomActDescription" />
+                </div>
+                <div>
+                    <button ng-click="postActs()"> Gain Karma </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+

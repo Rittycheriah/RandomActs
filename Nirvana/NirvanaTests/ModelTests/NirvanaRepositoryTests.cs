@@ -290,12 +290,12 @@ namespace NirvanaTests.ModelTests
             NirvanaRepository nirvana_repo = new NirvanaRepository(mock_context.Object);
 
             // Act
-            Dictionary<string, int> user_rank = nirvana_repo.GetAllUsersRanks();
+            IOrderedEnumerable<KeyValuePair<string, int>> user_rank = nirvana_repo.GetAllUsersRanks();
 
             // Assert
             int recValue = 0;
-            user_rank.TryGetValue(user1.Email, out recValue);
-            Assert.AreEqual(9, recValue);
+            int user_pt = user_rank.ElementAt(1).Value;
+            Assert.AreEqual(9, user_pt);
         }
 
         [TestMethod]

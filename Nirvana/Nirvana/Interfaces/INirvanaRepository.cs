@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace Nirvana.Models
 {
@@ -21,7 +22,7 @@ namespace Nirvana.Models
         List<RandomActsModel> GetAllActs(ApplicationUser _user);
         List<Comment> GetAllComments();
         List<Comment> GetAllComments(int ActId);
-        Dictionary<string, int> GetAllUsersRanks();
+        IOrderedEnumerable<KeyValuePair<string, int>> GetAllUsersRanks();
         int GetLikeCount(int act_id);
         int GetTotalPoints(ApplicationUser user1);
         Rank GetUserRank(ApplicationUser user);

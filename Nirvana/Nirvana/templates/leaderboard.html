@@ -5,8 +5,8 @@
 	<meta charset="utf-8" />
 </head>
 <body>
-    <div class="row">
-        <h1>Where's your Nirvana at?</h1>
+    <div class="row mainText">
+        <h1 class="purposeTxt">Where's your Nirvana at?</h1>
         <div class="col-md-4"></div>
         <div class="col-md-4">
 
@@ -16,9 +16,9 @@
                         <span class="badge"><h2>Points</h2></span>
                         <h2>User</h2>
                     </li>
-                    <li class="list-group-item" ng-repeat="(key, value) in allRanks track by $index">
-                        <span class="badge"><h4>{{value}}</h4></span>
-                        <h4>{{key}}</h4>
+                    <li class="list-group-item" ng-repeat="rank in allRanks track by $index">
+                        <span class="badge"><h4>{{rank.Value}}</h4></span>
+                        <h4>{{rank.Key}}</h4>
                     </li>
                 </ul>
             </div>

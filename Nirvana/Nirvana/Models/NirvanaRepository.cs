@@ -125,7 +125,7 @@ namespace Nirvana.Models
 
         }
 
-        public Dictionary<string, int> GetAllUsersRanks()
+        public IOrderedEnumerable<KeyValuePair<string, int>> GetAllUsersRanks()
         {
             List<ApplicationUser> AllUsers = context.Users.ToList();
             Dictionary<string, int> Leaderboard = new Dictionary<string, int>();
@@ -137,9 +137,9 @@ namespace Nirvana.Models
                 Leaderboard.Add(user.Email.ToString(), TotalPoints);
             }
 
-            Leaderboard.OrderByDescending(n => n.Value);
+            var sortLeaderboard = from v in Leaderboard orderby v.Value descending select v;
 
-            return Leaderboard;
+            return sortLeaderboard;
         }
 
         public List<Comment> GetAllComments()

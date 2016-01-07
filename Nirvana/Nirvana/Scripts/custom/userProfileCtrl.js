@@ -52,7 +52,12 @@
             var url = "/api/Acts/" + act;
            
             $http.post(url, toSend).then(
-              function (response) { console.log("SUCCESS - comments using FROMURI"); $scope.closeIt = true; $scope.showActComments(act) },
+              function (response) {
+                  console.log("SUCCESS - comments using FROMURI");
+                  $scope.closeIt = true; 
+                  $scope.showActComments(act)
+                  comment = {};
+              },
               function (response) { console.log("ERRORRRRRR - comments using FROM URI"); }
             )
         };
@@ -60,7 +65,7 @@
         $scope.showActComments = function (act_id) {
             $scope.current_comment = true;
             $scope.showComments = true;
-            debugger
+
             $http({
                 url: "api/Acts/GetComms/" + act_id, 
                 method: "GET", 
@@ -142,4 +147,8 @@
         var reloadRoute = function () {
             $route.reload();
         }
+
+        $scope.reset = function() {
+            $scope.user = angular.copy($scope.master);
+        };
     });

@@ -191,7 +191,7 @@ namespace Nirvana.Controllers
         [HttpGet]
         public string Leaderboard()
         {
-            Dictionary<string, int> leaderboard = nirvana_repo.GetAllUsersRanks();
+            IOrderedEnumerable<KeyValuePair<string, int>> leaderboard = nirvana_repo.GetAllUsersRanks();
 
             string json = JsonConvert.SerializeObject(leaderboard, Formatting.Indented);
 
