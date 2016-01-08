@@ -3,23 +3,23 @@
     <h1 class="purposeTxt"> Log Your Act Below to Gain Points! </h1>
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <form method="post" novalidate>
-            <fieldset>
-                <legend> Add An Act </legend>
-                <div>
+        <fieldset>
+            <legend> Add An Act </legend>
+        </fieldset>
+            <form class="form-horizontal" role="form" method="post" novalidate>
+                <div class="form-group">
                     <label for="actTitle"> Act Title</label>
-                    <input type="text" name="ActTitle" ng-model="new_act.randomActTitle" />
+                    <input class="actInput form-control" type="text" name="ActTitle" ng-model="new_act.randomActTitle" />
                 </div>
-                <div>
+                <div class="form-group">
                     <label for="actDescription"> Act Description</label>
-                    <input type="text" name="ActDescription" ng-model="new_act.randomActDescription" />
+                    <input class="actInput form-control" type="text" name="ActDescription" ng-model="new_act.randomActDescription" />
                 </div>
-                <div>
-                    <button ng-click="postActs()"> Gain Karma </button>
+                <div class="row text-center">
+                    <button class="btn btn-success" ng-click="postActs()"> Gain Karma </button>
                 </div>
-            </fieldset>
-        </form>
-    </div>
+            </form>
+        </div>
     <div class="col-md-4"></div>
 </div>
 

@@ -1,12 +1,13 @@
 ﻿<div class="container-fluid">
     <div class="row mainText">
         <h1 class="purposeTxt">Hello, {{UserRank.data.name}} {{UserName.data}}! You have {{UserTotal.data}} points. </h1>
+        <h2 class="purposeTxt">Help others gain points! Here's everyone else's acts: </h2>
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="row">
                 <div ng-repeat="act in things track by $index"> 
                     <div class="panel panel-success">
-                        <div class="panel-heading">{{act.randomActTitle}}</div>
+                        <div class="panel-heading randomActTitle">{{act.randomActTitle}}</div>
                         <div class="panel panel-body">
                              <p>Description: {{act.randomActDescription}} </p><br />
                              <label>By: {{act.owner.userName}}</label> <br />
@@ -14,16 +15,27 @@
                              <label>Total Points: {{act.pointsEarned}}</label><br />
                         </div>
                         <div class="panel panel-footer">
-                            <button type="button" class="btn btn-success" ng-click="isCommenting = true"> Add Comment </button>
-                            <button type="button" class="btn btn-success" ng-click="current_comment = true"> Show Comments </button>
-                            <button type="button" class="btn btn-info" ng-click="postLike(act.randomActId)">
-                                <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Like 
-                            </button>
+                            <div class="row text-center">
+                                <div class="col-xs-12">
+                                    <button type="button" class="btn btn-success" ng-click="isCommenting = true"> Add Comment </button>
+                                    <button type="button" class="btn btn-success" ng-click="current_comment = true"> Show Comments </button>
+                                    <button type="button" class="btn btn-info" ng-click="postLike(act.randomActId)">
+                                        <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Like
+                                    </button>
+                                </div>
+                            </div>
 
-                            <div ng-show="isCommenting" class="panel panel-body ng-hide">
+                            <div ng-show="isCommenting" class="panel panel-body ng-hide" id="addCommentPanel">
                                 <label> Comment: </label>
-                                <input type="text" ng-model="comment" name="comment"/>
-                                <button ng-click="postComment(act.randomActId, comment)"> Submit</button>
+                                <input type="text" ng-model="comment" name="comment" class="crudTxt" />
+                                <div class="row">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-4">
+                                        <button class="btn btn-info" ng-click="postComment(act.randomActId, comment)"> Submit</button>
+                                        <i class="fa fa-spinner fa-spin ng-hide" ng-show="waiting"></i>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                </div>
                             </div>
                             <div ng-show="current_comment" class="panel panel-body">
                                 <div ng-repeat="comment in act.comments">
@@ -32,19 +44,29 @@
                                            {{comment.userComment}}<br />
                                            {{comment.user.email}} <br />
                                            {{ comment.date | date:"MMM d, y" }}<br />
+                                           <hr />
                                        </div>
                                        <div>
-                                           <button type="button" class="btn btn-info" ng-click="changeEdit(comment.commentId)">Edit</button>
-                                            <button type="button" class="btn btn-danger" ng-click="deleteComment(comment.commentId)">Delete</button>
+                                           <div class="row text-center">
+                                               <button type="button" class="btn btn-info" ng-click="changeEdit(comment.commentId)">Edit</button>
+                                               <button type="button" class="btn btn-danger" ng-click="deleteComment(comment.commentId)">Delete</button>
+                                           </div>
                                        </div>
-                                       <div ng-show="editingComment == comment.commentId" class="ng-hide panel panel-info">
+                                       <div ng-show="editingComment == comment.commentId" class="ng-hide panel panel-info editCommentPanel">
                                            <label> Edit Comment </label>
-                                           <input type="text" name="comment" ng-model="comment.userComment"/> 
-                                           <button class="btn btn-info" ng-click="editComment(comment.commentId, comment.userComment)" >Submit </button>
-                                           <i class="fa fa-spinner fa-spin ng-hide" ng-show="waiting"></i>
+                                           <input type="text" name="comment" ng-model="comment.userComment" class="crudTxt" /> 
+                                           <div class="row text-center">
+                                               <div class="col-sm-12">
+                                                   <button class="btn btn-info" ng-click="editComment(comment.commentId, comment.userComment)">Submit </button>
+                                                   <i class="fa fa-spinner fa-spin ng-hide" ng-show="waiting"></i>
+                                               </div>
+                                           </div>
                                        </div>
                                     </div>
                                </div>
+                              <div class="row text-center">
+                                  <button class="btn btn-primary" ng-click="current_comment = false">Close Comments</button>
+                              </div>
                             </div>
                         </div>
                     </div>

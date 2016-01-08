@@ -18,7 +18,7 @@
                     </li>
                     <li class="list-group-item" ng-repeat="rank in allRanks track by $index">
                         <span class="badge"><h4>{{rank.Value}}</h4></span>
-                        <h4>{{rank.Key}}</h4>
+                        <h4>{{$index + 1}}. {{rank.Key}}</h4>
                     </li>
                 </ul>
             </div>

@@ -14,11 +14,11 @@
         <div class="col-md-4">
             <div ng-repeat="act in myActs">
                 <div class="panel panel-success">
-                    <div class="panel-heading">{{act.randomActTitle}}</div>
+                    <div class="panel-heading randomActTitle">{{act.randomActTitle}}</div>
                     <div class="panel panel-body">
-                        {{act.randomActDescription}}<br />
-                        Total Likes: {{act.likes.length}}
-                        Total Points: {{act.pointsEarned}}
+                        <p>{{act.randomActDescription}}</p><br />
+                        <label>Total Likes: {{act.likes.length}}</label> <br />
+                        <label> Points: {{act.pointsEarned}}</label> <br />
                     </div>
                 </div>
             </div>

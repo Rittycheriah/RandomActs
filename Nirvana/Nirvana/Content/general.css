@@ -1,5 +1,5 @@
 ﻿#titleText {
-  font-size: 100px;
+  font-size: 850%;
   font-family: "Finger Paint", cursive;
   text-align: center;
 }
@@ -20,4 +20,31 @@
 .purposeTxt {
   text-align: center;
   font-family: Comfortaa, cursive;
+  font-weight: bold;
+  padding-bottom: 1%;
+}
+
+.editCommentPanel {
+  padding: 2%;
+  margin: 5%;
+}
+
+#addCommentPanel {
+  margin: 5%;
+  padding: 2%;
+}
+
+.randomActTitle {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.crudTxt {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.btn {
+  margin-top: 1% !important;
+  margin-bottom: 1%;
 }

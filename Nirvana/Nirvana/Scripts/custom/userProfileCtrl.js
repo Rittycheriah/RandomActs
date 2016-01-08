@@ -43,6 +43,7 @@
         );
 
         $scope.postComment = function (act, comment) {
+            $scope.waiting = true;
             var newComment = {
                 userComment: comment, actId: act
             }
@@ -57,6 +58,7 @@
                   $scope.closeIt = true; 
                   $scope.showActComments(act)
                   comment = {};
+                  $scope.waiting = false;
               },
               function (response) { console.log("ERRORRRRRR - comments using FROM URI"); }
             )
@@ -131,6 +133,7 @@
             $http.post(url).then(
               function (response) {
                   console.log("SUCCESS - LIKES")
+
                   reloadRoute();
               },
               function (response) {
