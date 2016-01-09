@@ -23,3 +23,5 @@
 4. Clickable search brings you to individual acts
 5. Bootstrap alerts for likes instead of refreshes
 
+Initial Moqups: https://moqups.com/rittycheriah/bnudLjIe/p:a721cd384
+Entity Relationship Diagram (PDF) : https://www.lucidchart.com/publicSegments/view/1f307767-a77b-4bd5-aecc-fc16424280b6
