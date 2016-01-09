@@ -14,9 +14,12 @@
 10. User will have the ability to view other users total points
 
 ### Advanced Functionality: 
-1. User home will have a live thread of the most recently logged random act of kindness
-2. User can publish their act to their Twitter, Facebook, or other social media.
-3. Nirvana level achievement can result in the ability to begin campaigns and get donations.
-4. Utilizing Google Maps API for geolocation with logging acts
+1. User home will have a live thread of the most recently logged random act of kindness from other users
 
+### Version Two Plans: 
+1. User can publish their act to their Twitter, Facebook, or other social media.
+2. Nirvana level achievement can result in the ability to begin campaigns and get donations.
+3. Utilizing Google Maps API for geolocation with logging acts with data visualization
+4. Clickable search brings you to individual acts
+5. Bootstrap alerts for likes instead of refreshes
 
